@@ -1,14 +1,15 @@
-import {PropsWithChildren} from 'react';
 import {Header} from './components/header';
 import {Footer} from './components/footer';
 import {Sidebar} from './components/sidebar';
 import {Outlet} from 'react-router-dom';
 
+import styles from './Layout.module.scss';
+
 export const Layout = () => {
   return (
-    <div>
+    <div className={styles.layout}>
       <Header />
-      <div>
+      <div className={styles.content}>
         <Sidebar />
         <main>
           <Outlet />
