@@ -1,0 +1,17 @@
+.modalLayout  {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: rgb(17 185 4 / 20%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  background: blue;
+  height: 200px;
+  width: 300px;
+}

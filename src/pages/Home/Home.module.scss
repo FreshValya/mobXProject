@@ -1,15 +1,15 @@
-.layout {
+.home {
   display: flex;
   flex-direction: column;
   height: 100%;
+
+  & div {
+    flex-grow: 1;
+  }
 }
 
-.content {
-  flex-grow: 1;
+.cinemaList {
   display: flex;
   gap: 16px;
-}
-
-.main {
-  overflow: auto;
+  overflow: scroll;
 }

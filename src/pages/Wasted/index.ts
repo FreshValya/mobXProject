@@ -1,0 +1,1 @@
+export {Wasted} from './Wasted';
