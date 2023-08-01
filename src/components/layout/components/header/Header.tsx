@@ -1,12 +1,14 @@
+import {inject, observer} from 'mobx-react';
+import {Component} from 'react';
 import {NavLink} from 'react-router-dom';
 
-import styles from './Header.module.scss';
-import {Component} from 'react';
-import {AuthStore} from '@store/AuthStore';
-import {inject, observer} from 'mobx-react';
-import {ModalStore} from '@store/ModalStore';
 import {AuthorizationModal} from '@components/Modal/AuthorizationModal';
 import {LogoutForm} from '@components/Modal/LogoutForm';
+
+import {AuthStore} from '@store/AuthStore';
+import {ModalStore} from '@store/ModalStore';
+
+import styles from './Header.module.scss';
 
 interface HeaderProps {
   $authStore?: AuthStore;

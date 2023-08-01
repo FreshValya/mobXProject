@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^4.2.0",
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",
     "cross-env": "^7.0.3",
@@ -28,6 +29,7 @@
     "sass-loader": "^13.3.2",
     "style-loader": "^3.3.3",
     "ts-loader": "^9.4.4",
+    "ts-migrate": "^0.1.35",
     "tsconfig-paths-webpack-plugin": "^4.0.1",
     "typescript": "^5.1.6",
     "webpack": "^5.88.1",

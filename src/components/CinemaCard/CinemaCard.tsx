@@ -1,5 +1,5 @@
-import styles from './CinemaCard.module.scss';
 import {favoritesApi} from '../../api/favorites';
+import styles from './CinemaCard.module.scss';
 
 interface CinemaCardProps {
   id: number;

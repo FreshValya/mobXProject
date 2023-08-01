@@ -1,8 +1,10 @@
-import styles from './Footer.module.scss';
-import {NavLink} from 'react-router-dom';
-import {Component} from 'react';
-import {TickerStore} from '@store/TickerStore';
 import {inject, observer} from 'mobx-react';
+import {Component} from 'react';
+import {NavLink} from 'react-router-dom';
+
+import {TickerStore} from '@store/TickerStore';
+
+import styles from './Footer.module.scss';
 
 interface FooterProps {
   $tickerStore?: TickerStore;

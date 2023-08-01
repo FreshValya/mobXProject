@@ -1,7 +1,8 @@
 import {action, computed, makeObservable, observable} from 'mobx';
-import {FavoriteResponse, moviesApi} from '../api/movies';
-import {favoritesApi} from '../api/favorites';
-import {seriesApi} from '../api/series';
+
+import {favoritesApi} from '@api/favorites';
+import {FavoriteResponse, moviesApi} from '@api/movies';
+import {seriesApi} from '@api/series';
 
 export class WastedStore {
   constructor() {

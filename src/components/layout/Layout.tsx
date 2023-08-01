@@ -1,13 +1,15 @@
-import {Header} from './components/header';
-import {Footer} from './components/footer';
-import {Sidebar} from './components/sidebar';
-import {Outlet} from 'react-router-dom';
-
-import styles from './Layout.module.scss';
 import {inject, observer} from 'mobx-react';
 import {Component} from 'react';
+import {Outlet} from 'react-router-dom';
+
 import {Modal} from '@components/Modal/Modal';
+
 import {ModalStore} from '@store/ModalStore';
+
+import styles from './Layout.module.scss';
+import {Footer} from './components/footer';
+import {Header} from './components/header';
+import {Sidebar} from './components/sidebar';
 
 interface LayoutProps {
   $modalStore?: ModalStore;

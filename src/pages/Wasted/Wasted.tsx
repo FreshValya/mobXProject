@@ -1,6 +1,7 @@
-import {Component} from 'react';
-import {WastedStore} from '@store/WastedStore';
 import {inject, observer} from 'mobx-react';
+import {Component} from 'react';
+
+import {WastedStore} from '@store/WastedStore';
 
 interface WastedProps {
   $wastedStore?: WastedStore;

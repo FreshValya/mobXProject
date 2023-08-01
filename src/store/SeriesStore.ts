@@ -1,6 +1,7 @@
-import {observable, computed, action, flow, makeObservable} from 'mobx';
 import axios from 'axios';
-import {LatestSeriesResponse, seriesApi} from '../api/series';
+import {action, computed, flow, makeObservable, observable} from 'mobx';
+
+import {LatestSeriesResponse, seriesApi} from '@api/series';
 
 export class SeriesStore {
   constructor() {

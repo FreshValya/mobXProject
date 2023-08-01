@@ -6,5 +6,18 @@
   "singleQuote": true,
   "jsxSingleQuote": false,
   "trailingComma": "all",
-  "bracketSpacing": false
+  "bracketSpacing": false,
+  "importOrder": [
+    "<THIRD_PARTY_MODULES>",
+    "^@api(/.*)$",
+    "^@assets(/.*)$",
+    "^@components(/.*)$",
+    "^@pages(/.*)$",
+    "^@store(/.*)$",
+    "^[../]",
+    "^[./]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "importOrderParserPlugins": ["typescript", "jsx", "decorators-legacy"]
 }

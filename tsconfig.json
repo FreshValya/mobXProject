@@ -6,11 +6,13 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "jsx": "react-jsx",
+    "esModuleInterop": true,
     "sourceMap": true,
     "allowJs": true,
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
+      "@api/*": ["./src/api/*"],
       "@components/*": ["./src/components/*"],
       "@pages/*": ["./src/pages/*"],
       "@store/*": ["./src/store/*"],

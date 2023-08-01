@@ -1,6 +1,7 @@
 import {action, makeObservable, observable} from 'mobx';
-import {moviesApi} from '../api/movies';
 import {ReactNode} from 'react';
+
+import {moviesApi} from '@api/movies';
 
 interface Ticker {
   title: string;

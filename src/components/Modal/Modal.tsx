@@ -1,6 +1,7 @@
-import {ModalStore} from '@store/ModalStore';
-import {Component} from 'react';
 import {inject, observer} from 'mobx-react';
+import {Component} from 'react';
+
+import {ModalStore} from '@store/ModalStore';
 
 import styles from './Modal.module.scss';
 

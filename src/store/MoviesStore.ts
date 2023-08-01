@@ -1,5 +1,6 @@
 import {action, makeObservable, observable} from 'mobx';
-import {LatestMoviesResponse, moviesApi} from '../api/movies';
+
+import {LatestMoviesResponse, moviesApi} from '@api/movies';
 
 export class MoviesStore {
   constructor() {

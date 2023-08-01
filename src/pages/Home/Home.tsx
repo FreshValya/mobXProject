@@ -1,9 +1,12 @@
-import styles from './Home.module.scss';
-import {Component} from 'react';
 import {inject, observer} from 'mobx-react';
+import {Component} from 'react';
+
+import {CinemaCard} from '@components/CinemaCard/CinemaCard';
+
 import {MoviesStore} from '@store/MoviesStore';
 import {SeriesStore} from '@store/SeriesStore';
-import {CinemaCard} from '@components/CinemaCard/CinemaCard';
+
+import styles from './Home.module.scss';
 
 interface HomeProps {
   $moviesStore?: MoviesStore;

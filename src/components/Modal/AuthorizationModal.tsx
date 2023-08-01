@@ -1,6 +1,7 @@
-import {Component, FormEvent} from 'react';
-import {AuthStore} from '@store/AuthStore';
 import {inject, observer} from 'mobx-react';
+import {Component, FormEvent} from 'react';
+
+import {AuthStore} from '@store/AuthStore';
 import {ModalStore} from '@store/ModalStore';
 
 interface AuthorizationModalProps {

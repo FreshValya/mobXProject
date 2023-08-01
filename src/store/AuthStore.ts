@@ -1,5 +1,6 @@
 import {action, makeObservable, observable} from 'mobx';
-import {authApi, CreateSessionPayload} from '../api/auth';
+
+import {CreateSessionPayload, authApi} from '@api/auth';
 
 interface Data {
   requestToken?: string;
