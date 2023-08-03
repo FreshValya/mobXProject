@@ -47,7 +47,7 @@ export class WastedStore {
       }
 
       this.totalMoviesLength = titleMoviesTimes.reduce((prev, curr) => prev + curr, 0);
-      this.averageMoviesLength = this.totalMoviesLength / this.totalMovies;
+      this.averageMoviesLength = parseFloat((this.totalMoviesLength / this.totalMovies).toFixed(2));
 
       const favoritesSeries = await favoritesApi.getFavorites(20175604, 'tv');
       console.log(favoritesMovies);
@@ -64,7 +64,7 @@ export class WastedStore {
       }
 
       this.totalSeriesLength = titleSeriesTimes.reduce((prev, curr) => prev + curr, 0);
-      this.averageSeriesLength = this.totalSeriesLength / this.totalEpisodes;
+      this.averageSeriesLength = parseFloat((this.totalSeriesLength / this.totalEpisodes).toFixed(2));
     } catch (error) {
       this.isError = true;
       console.error(`Error happened: ${error}`);

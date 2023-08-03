@@ -8,7 +8,7 @@ const params = {
   },
 };
 
-interface TVShow {
+export interface TVShow {
   backdrop_path: string | null;
   first_air_date: string;
   genre_ids: number[];

@@ -1,4 +1,5 @@
-import {favoritesApi} from '../../api/favorites';
+import {favoritesApi} from '@api/favorites';
+
 import styles from './CinemaCard.module.scss';
 
 interface CinemaCardProps {
@@ -19,7 +20,7 @@ export const CinemaCard = ({id, type, original_title, poster_path}: CinemaCardPr
 
   return (
     <div className={styles.cinemaCard}>
-      <div>
+      <div className={styles.actions}>
         <div onClick={addFavorite}>+</div>
         <div onClick={removeFavorite}>-</div>
       </div>

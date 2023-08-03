@@ -8,7 +8,7 @@ const params = {
   },
 };
 
-type LatestMovie = {
+export type LatestMovie = {
   adult: boolean;
   backdrop_path: string | null;
   belongs_to_collection: any | null; // You can use a more specific type if available

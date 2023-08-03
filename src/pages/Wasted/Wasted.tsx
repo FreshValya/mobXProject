@@ -3,6 +3,8 @@ import {Component} from 'react';
 
 import {WastedStore} from '@store/WastedStore';
 
+import styles from './Wasted.module.scss';
+
 interface WastedProps {
   $wastedStore?: WastedStore;
 }
@@ -15,18 +17,18 @@ export class Wasted extends Component<WastedProps> {
   }
 
   render() {
-    console.log(this.props.$wastedStore.isLoading, this.props.$wastedStore.data);
+    const {$wastedStore} = this.props;
 
     return (
-      <div>
-        <div>Wasted time: {this.props.$wastedStore.totalLength}</div>
+      <div className={styles.wasted}>
+        <div>Wasted time: {$wastedStore.totalLength}</div>
         <div>
-          Total watched movies: {this.props.$wastedStore.totalMovies}, total time {this.props.$wastedStore.totalMoviesLength}, average time{' '}
-          {this.props.$wastedStore.averageMoviesLength}
+          Total watched movies: {$wastedStore.totalMovies}, total time {$wastedStore.totalMoviesLength}, average time{' '}
+          {$wastedStore.averageMoviesLength}
         </div>
         <div>
-          Total watched series: {this.props.$wastedStore.totalSeries}, total time {this.props.$wastedStore.totalSeriesLength}, average time{' '}
-          {this.props.$wastedStore.averageSeriesLength}
+          Total watched series: {$wastedStore.totalSeries}, total time {$wastedStore.totalSeriesLength}, average time{' '}
+          {$wastedStore.averageSeriesLength}
         </div>
       </div>
     );

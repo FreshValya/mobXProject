@@ -19,7 +19,8 @@ interface LayoutProps {
 @observer
 export class Layout extends Component<LayoutProps> {
   render() {
-    const isOpen = this.props.$modalStore.modal.open;
+    const {$modalStore} = this.props;
+    const isOpen = $modalStore.modal.open;
 
     return (
       <>

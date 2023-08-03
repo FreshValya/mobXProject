@@ -1,0 +1,11 @@
+.cinemaPanel {
+  & .mediaType {
+    margin-bottom: 16px;
+  }
+
+  & .cards {
+    display: flex;
+    gap: 16px;
+    overflow: auto;
+  }
+}

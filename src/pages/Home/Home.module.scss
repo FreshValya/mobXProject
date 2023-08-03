@@ -2,14 +2,5 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-
-  & div {
-    flex-grow: 1;
-  }
-}
-
-.cinemaList {
-  display: flex;
-  gap: 16px;
-  overflow: scroll;
+  justify-content: center;
 }
