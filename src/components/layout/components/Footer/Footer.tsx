@@ -18,18 +18,21 @@ export class Footer extends Component<FooterProps> {
   }
 
   render() {
+    const {$tickerStore} = this.props;
+
     return (
       <div className={styles.footer}>
         <NavLink to={'about'}>about page</NavLink>
-        {this.props.$tickerStore.ticker.title && (
-          <div className={styles.tickerWrap}>
+
+        <div className={styles.tickerWrap}>
+          {$tickerStore.ticker.title && (
             <div className={styles.ticker}>
               <div className={styles.ticker__item}>
-                {this.props.$tickerStore.ticker.title}({this.props.$tickerStore.ticker.releaseDate}): {this.props.$tickerStore.ticker.overview}
+                {$tickerStore.ticker.title} ({$tickerStore.ticker.releaseYear}): {$tickerStore.ticker.overview}
               </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     );
   }

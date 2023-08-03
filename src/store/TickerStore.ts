@@ -6,7 +6,7 @@ import {moviesApi} from '@api/movies';
 interface Ticker {
   title: string;
   overview: string;
-  releaseDate: string;
+  releaseYear: string;
 }
 
 export class TickerStore {
@@ -14,7 +14,7 @@ export class TickerStore {
     makeObservable(this);
   }
 
-  @observable ticker: Ticker = {title: '', overview: '', releaseDate: ''};
+  @observable ticker: Ticker = {title: '', overview: '', releaseYear: ''};
   @observable isLoading = false;
   @observable isError = false;
 
@@ -26,11 +26,10 @@ export class TickerStore {
     try {
       const randomID = Math.floor(Math.random() * 1000) + 1;
       const movieDetails = await moviesApi.getDetails(randomID);
-      console.log(movieDetails);
 
       this.ticker.title = movieDetails.title;
       this.ticker.overview = movieDetails.overview;
-      this.ticker.releaseDate = movieDetails.release_date;
+      this.ticker.releaseYear = movieDetails.release_date.split('-')[0];
     } catch (error) {
       this.isError = true;
       console.error(`Error happened: ${error}`);

@@ -3,9 +3,16 @@
 .footer {
   width: 100%;
   background: $light-3;
+  display: flex;
+  gap: 8px;
+  white-space: nowrap;
+
+  & a {
+    padding: 8px;
+  }
 }
 
-$duration: 30s;
+$duration: 60s;
 
 @-webkit-keyframes ticker {
   0% {
@@ -34,22 +41,15 @@ $duration: 30s;
 }
 
 .tickerWrap {
-
-  position: fixed;
-  bottom: 0;
-  width: 100%;
   overflow: hidden;
-  background-color: rgba(#000, 0.4);
-  padding-left: 100%;
-  box-sizing: content-box;
-  margin-left: 70px;
+  background-color: $light-4;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 100%;
 
   .ticker {
-
-    display: inline-block;
-    white-space: nowrap;
-    padding-right: 100%;
-    box-sizing: content-box;
+    padding-left: 100%;
 
     -webkit-animation-iteration-count: infinite;
     animation-iteration-count: infinite;
@@ -61,12 +61,7 @@ $duration: 30s;
     animation-duration: $duration;
 
     &__item {
-
-      display: inline-block;
-      color: white;
-
+      color: $light-1;
     }
-
   }
-
 }

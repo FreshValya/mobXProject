@@ -13,13 +13,15 @@ interface ModalProps {
 @observer
 export class Modal extends Component<ModalProps> {
   render() {
+    const {$modalStore} = this.props;
+
     return (
       <div className={styles.modalLayout}>
-        <div className={styles.modalContent}>
-          <button type="button" onClick={this.props.$modalStore.closeModal}>
+        <div className={styles.modalCard}>
+          <button type="button" onClick={$modalStore.closeModal} className={styles.closeButton}>
             x
           </button>
-          {this.props.$modalStore.modal.body}
+          <div className={styles.modalContent}>{$modalStore.modal.body}</div>
         </div>
       </div>
     );

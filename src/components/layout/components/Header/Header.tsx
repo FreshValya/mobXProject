@@ -2,8 +2,7 @@ import {inject, observer} from 'mobx-react';
 import {Component} from 'react';
 import {NavLink} from 'react-router-dom';
 
-import {AuthorizationModal} from '@components/Modal/AuthorizationModal';
-import {LogoutForm} from '@components/Modal/LogoutForm';
+import {LoginForm, LogoutForm} from '@components/Authorization';
 
 import {AuthStore} from '@store/AuthStore';
 import {ModalStore} from '@store/ModalStore';
@@ -19,12 +18,12 @@ interface HeaderProps {
 @observer
 export class Header extends Component<HeaderProps> {
   render() {
+    const {$authStore, $modalStore} = this.props;
     const handleModal = () => {
-      console.log(this.props.$authStore.data.sessionId);
-      if (this.props.$authStore.isAuthenticated) {
-        this.props.$modalStore.openModal(<LogoutForm />);
+      if ($authStore.isAuthenticated) {
+        $modalStore.openModal(<LogoutForm />);
       } else {
-        this.props.$modalStore.openModal(<AuthorizationModal />);
+        $modalStore.openModal(<LoginForm />);
       }
     };
 
@@ -33,7 +32,7 @@ export class Header extends Component<HeaderProps> {
         <NavLink to={'/'}>home</NavLink>
 
         <button type="button" onClick={handleModal}>
-          {this.props.$authStore.isAuthenticated ? 'logout' : 'login'}
+          {$authStore.isAuthenticated ? 'logout' : 'login'}
         </button>
       </div>
     );

@@ -1,17 +1,35 @@
+@import "src/styles/_colors";
+
 .modalLayout  {
   position: absolute;
   height: 100%;
   width: 100%;
-  background: rgb(17 185 4 / 20%);
+  background: rgba($light-3, 70%);
   display: flex;
   justify-content: center;
   align-items: center;
-}
 
-.modalContent {
-  display: flex;
-  flex-direction: column;
-  background: blue;
-  height: 200px;
-  width: 300px;
+  & .modalCard {
+    display: flex;
+    flex-direction: column;
+    background: $light-4;
+    height: 200px;
+    width: 300px;
+
+    & .closeButton {
+      align-self: flex-end;
+      cursor: pointer;
+      padding: 8px;
+      line-height: 8px;
+      color: $dark-1;
+      position: absolute;
+    }
+
+    & .modalContent {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
 }

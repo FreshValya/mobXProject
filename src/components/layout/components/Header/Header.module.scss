@@ -2,7 +2,13 @@
 
 .header {
   width: 100%;
-  background: #8a8a8a;
+  background: $light-3;
   display: flex;
   justify-content: space-between;
+  padding: 8px;
+
+  & button {
+    cursor: pointer;
+    color: $dark-1;
+  }
 }
