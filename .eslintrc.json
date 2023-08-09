@@ -1,6 +1,9 @@
 {
-  "extends": ["airbnb", "prettier"],
+  "extends": ["airbnb", "airbnb-typescript", "prettier"],
   "plugins": ["prettier"],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
   "rules": {
     "prettier/prettier": "error",
     "no-unused-vars": "warn",
@@ -8,6 +11,17 @@
     "func-names": "off",
     "no-process-exit": "off",
     "object-shorthand": "off",
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+    "import/prefer-default-export": "off",
+    "lines-between-class-members": "off",
+    "@typescript-eslint/lines-between-class-members": "off",
+    "react/require-default-props": "off",
+    "react/destructuring-assignment": "off",
+    "react/react-in-jsx-scope": "off",
+    "import/no-extraneous-dependencies": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/function-component-definition": "off"
   }
 }
