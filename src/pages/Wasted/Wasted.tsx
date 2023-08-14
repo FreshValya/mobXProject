@@ -21,14 +21,14 @@ export class Wasted extends Component<WastedProps> {
 
     return (
       <div className={styles.wasted}>
-        <div>Wasted time: {$wastedStore.totalLength}</div>
+        <div>total wasted time: {$wastedStore.totalLength} min</div>
         <div>
-          Total watched movies: {$wastedStore.totalMovies}, total time {$wastedStore.totalMoviesLength}, average time{' '}
-          {$wastedStore.averageMoviesLength}
+          total watched movies: {$wastedStore.totalMovies}, total time {$wastedStore.totalMoviesLength} min, average time{' '}
+          {$wastedStore.averageMoviesLength} min
         </div>
         <div>
-          Total watched series: {$wastedStore.totalSeries}, total time {$wastedStore.totalSeriesLength}, average time{' '}
-          {$wastedStore.averageSeriesLength}
+          total watched series: {$wastedStore.totalSeries}, total time {$wastedStore.totalSeriesLength} min, average time{' '}
+          {$wastedStore.averageSeriesLength} min
         </div>
       </div>
     );

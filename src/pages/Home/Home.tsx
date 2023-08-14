@@ -2,7 +2,6 @@ import {inject, observer} from 'mobx-react';
 import {Component} from 'react';
 
 import {CinemaPanel} from '@components/CinemaPanel';
-import {CinemaCard} from '@components/CinemaPanel/components/CinemaCard/CinemaCard';
 
 import {MoviesStore} from '@store/MoviesStore';
 import {SeriesStore} from '@store/SeriesStore';
@@ -18,8 +17,8 @@ interface HomeProps {
 @observer
 export class Home extends Component<HomeProps> {
   componentDidMount() {
-    this.props.$moviesStore.getData();
-    this.props.$seriesStore.getData();
+    this.props.$moviesStore.makeQuery();
+    this.props.$seriesStore.makeQuery();
   }
 
   render() {
@@ -33,8 +32,8 @@ export class Home extends Component<HomeProps> {
     //   return <div>nothing series found</div>;
     // }
 
-    const movies = 'results' in $moviesStore.data ? $moviesStore.data?.results : [];
-    const tv = 'results' in $seriesStore.data ? $seriesStore.data?.results : [];
+    const movies = $moviesStore.isData ? $moviesStore.data.results : [];
+    const tv = $seriesStore.isData ? $seriesStore.data.results : [];
 
     return (
       <div className={styles.home}>

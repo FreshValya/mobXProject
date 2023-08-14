@@ -13,13 +13,13 @@ interface CinemaPanelProps<T extends LatestMovie | TVShow> {
 export const CinemaPanel = <T extends LatestMovie | TVShow>({mediaType, media}: CinemaPanelProps<T>) => {
   const panelTitle = mediaType === 'movie' ? 'movies' : mediaType;
 
-  if (media.length === 0) {
+  if (media?.length === 0) {
     return <div>nothing {panelTitle} found</div>;
   }
 
   return (
     <div className={styles.cinemaPanel}>
-      <div className={styles.mediaType}>{panelTitle}</div>
+      <div className={styles.mediaType}>latest {panelTitle}</div>
       <div className={styles.cards}>
         {media.map((show) => (
           <CinemaCard

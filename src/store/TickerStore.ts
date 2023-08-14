@@ -1,7 +1,8 @@
-import {action, makeObservable, observable} from 'mobx';
-import {ReactNode} from 'react';
+import {computed, makeObservable} from 'mobx';
 
-import {moviesApi} from '@api/movies';
+import {MovieDetailsResponse, moviesApi} from '@api/movies';
+
+import {QueryStore} from '@store/QueryStore';
 
 interface Ticker {
   title: string;
@@ -9,32 +10,18 @@ interface Ticker {
   releaseYear: string;
 }
 
-export class TickerStore {
+export class TickerStore extends QueryStore<MovieDetailsResponse> {
   constructor() {
+    super();
+
     makeObservable(this);
   }
 
-  @observable ticker: Ticker = {title: '', overview: '', releaseYear: ''};
-  @observable isLoading = false;
-  @observable isError = false;
+  randomID = Math.floor(Math.random() * 1000) + 1;
+  apiFunction = () => moviesApi.getDetails(this.randomID);
 
-  @action
-  async getData() {
-    this.isError = false;
-    this.isLoading = true;
-
-    try {
-      const randomID = Math.floor(Math.random() * 1000) + 1;
-      const movieDetails = await moviesApi.getDetails(randomID);
-
-      this.ticker.title = movieDetails.title;
-      this.ticker.overview = movieDetails.overview;
-      this.ticker.releaseYear = movieDetails.release_date.split('-')[0];
-    } catch (error) {
-      this.isError = true;
-      console.error(`Error happened: ${error}`);
-    } finally {
-      this.isLoading = false;
-    }
+  @computed
+  get ticker(): Ticker {
+    return {title: this.data.title || '', overview: this.data.overview || '', releaseYear: this.data.release_date.split('-')[0] || ''};
   }
 }

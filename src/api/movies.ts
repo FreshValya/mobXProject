@@ -85,7 +85,7 @@ interface SpokenLanguage {
   name: string;
 }
 
-interface MovieDetailsResponse {
+export interface MovieDetailsResponse {
   adult: boolean;
   backdrop_path: string | null;
   belongs_to_collection: any | null; // You can use a more specific type if available

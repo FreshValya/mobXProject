@@ -1,29 +1,15 @@
-import axios from 'axios';
-import {action, computed, flow, makeObservable, observable} from 'mobx';
+import {makeObservable} from 'mobx';
 
 import {LatestSeriesResponse, seriesApi} from '@api/series';
 
-export class SeriesStore {
+import {QueryStore} from '@store/QueryStore';
+
+export class SeriesStore extends QueryStore<LatestSeriesResponse> {
   constructor() {
+    super();
+
     makeObservable(this);
   }
 
-  @observable data: LatestSeriesResponse | {} = {};
-  @observable isLoading = false;
-  @observable isError = false;
-
-  @action
-  async getData() {
-    this.isError = false;
-    this.isLoading = true;
-
-    try {
-      this.data = await seriesApi.getLatestSeries();
-    } catch (error) {
-      this.isError = true;
-      console.error(`Error happened: ${error}`);
-    } finally {
-      this.isLoading = false;
-    }
-  }
+  apiFunction = seriesApi.getLatestSeries;
 }

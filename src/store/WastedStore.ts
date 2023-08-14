@@ -13,14 +13,11 @@ export class WastedStore {
   @observable isLoading = false;
   @observable isError = false;
 
-  // @observable totalLength = 0;
-
   @observable totalMovies = 0;
   @observable totalMoviesLength = 0;
   @observable averageMoviesLength = 0;
 
   @observable totalSeries = 0;
-  totalEpisodes = 0;
   @observable totalSeriesLength = 0;
   @observable averageSeriesLength = 0;
 
@@ -47,24 +44,24 @@ export class WastedStore {
       }
 
       this.totalMoviesLength = titleMoviesTimes.reduce((prev, curr) => prev + curr, 0);
-      this.averageMoviesLength = parseFloat((this.totalMoviesLength / this.totalMovies).toFixed(2));
+      this.averageMoviesLength = parseFloat((this.totalMoviesLength / this.totalMovies).toFixed(2)) || 0;
 
       const favoritesSeries = await favoritesApi.getFavorites(20175604, 'tv');
-      console.log(favoritesMovies);
 
-      this.totalSeries = favoritesMovies.total_results;
+      this.totalSeries = favoritesSeries.total_results;
       const titleSeriesTimes = [];
+      let totalEpisodes = 0;
 
       for (const series of favoritesSeries.results) {
         const seriesDetails = await seriesApi.getDetails(series.id);
         const avgEpisodeTime = seriesDetails.episode_run_time.reduce((prev, curr) => prev + curr, 0);
 
-        this.totalEpisodes += seriesDetails.number_of_episodes;
+        totalEpisodes += seriesDetails.number_of_episodes;
         titleSeriesTimes.push(seriesDetails.number_of_episodes * avgEpisodeTime);
       }
 
       this.totalSeriesLength = titleSeriesTimes.reduce((prev, curr) => prev + curr, 0);
-      this.averageSeriesLength = parseFloat((this.totalSeriesLength / this.totalEpisodes).toFixed(2));
+      this.averageSeriesLength = parseFloat((this.totalSeriesLength / totalEpisodes).toFixed(2)) || 0;
     } catch (error) {
       this.isError = true;
       console.error(`Error happened: ${error}`);

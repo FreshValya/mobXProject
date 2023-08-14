@@ -14,7 +14,7 @@ interface FooterProps {
 @observer
 export class Footer extends Component<FooterProps> {
   async componentDidMount() {
-    await this.props.$tickerStore.getData();
+    await this.props.$tickerStore.makeQuery();
   }
 
   render() {
@@ -22,10 +22,10 @@ export class Footer extends Component<FooterProps> {
 
     return (
       <div className={styles.footer}>
-        <NavLink to={'about'}>about page</NavLink>
+        <NavLink to="about">about page</NavLink>
 
         <div className={styles.tickerWrap}>
-          {$tickerStore.ticker.title && (
+          {$tickerStore.isData && (
             <div className={styles.ticker}>
               <div className={styles.ticker__item}>
                 {$tickerStore.ticker.title} ({$tickerStore.ticker.releaseYear}): {$tickerStore.ticker.overview}

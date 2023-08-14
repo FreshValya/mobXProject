@@ -1,8 +1,7 @@
 import {Provider} from 'mobx-react';
 import {Route, createBrowserRouter, createRoutesFromElements} from 'react-router-dom';
+import {Layout} from 'src/components/Layout';
 import {Cinema} from 'src/pages/Cinema';
-
-import {Layout} from '@components/layout';
 
 import {About} from '@pages/About';
 import {ErrorStub} from '@pages/ErrorStub';
