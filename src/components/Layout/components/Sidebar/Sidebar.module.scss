@@ -1,4 +1,5 @@
 @import "src/styles/_colors";
+@import "src/styles/_variables";
 
 .sidebar {
   background: $light-2;
@@ -7,4 +8,5 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+  width: $sidebar-width;
 }

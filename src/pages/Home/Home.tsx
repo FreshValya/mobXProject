@@ -6,6 +6,8 @@ import {CinemaPanel} from '@components/CinemaPanel';
 import {MoviesStore} from '@store/MoviesStore';
 import {SeriesStore} from '@store/SeriesStore';
 
+// FIXME: not working with import-sort plugin
+import {Spinner} from '../../ui-kit/Spinner';
 import styles from './Home.module.scss';
 
 interface HomeProps {
@@ -32,13 +34,14 @@ export class Home extends Component<HomeProps> {
     //   return <div>nothing series found</div>;
     // }
 
-    const movies = $moviesStore.isData ? $moviesStore.data.results : [];
-    const tv = $seriesStore.isData ? $seriesStore.data.results : [];
+    if (!$moviesStore.isData || !$seriesStore.isData) {
+      return <Spinner />;
+    }
 
     return (
       <div className={styles.home}>
-        <CinemaPanel mediaType="movie" media={movies} />
-        <CinemaPanel mediaType="tv" media={tv} />
+        <CinemaPanel mediaType="movie" media={$moviesStore.data.results} />
+        <CinemaPanel mediaType="tv" media={$seriesStore.data.results} />
       </div>
     );
   }
