@@ -1,12 +1,12 @@
 {
   "extends": ["airbnb", "airbnb-typescript", "prettier"],
-  "plugins": ["prettier", "unused-imports"],
+  "plugins": ["prettier"],
   "parserOptions": {
     "project": "./tsconfig.json"
   },
   "rules": {
     "prettier/prettier": "error",
-    "no-unused-vars": "warn",
+    "no-unused-vars": "error",
     "no-console": "off",
     "func-names": "off",
     "no-process-exit": "off",
@@ -22,7 +22,6 @@
     "jsx-a11y/no-static-element-interactions": "off",
     "jsx-a11y/click-events-have-key-events": "off",
     "react/jsx-props-no-spreading": "off",
-    "react/function-component-definition": "off",
-    "no-unused-vars": "error"
+    "react/function-component-definition": "off"
   }
 }

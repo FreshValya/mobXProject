@@ -1,4 +1,5 @@
 import axios from 'axios';
+import qs from 'query-string';
 
 const params = {
   headers: {
@@ -8,37 +9,7 @@ const params = {
   },
 };
 
-export type LatestMovie = {
-  adult: boolean;
-  backdrop_path: string | null;
-  belongs_to_collection: any | null; // You can use a more specific type if available
-  budget: number;
-  genres: string[]; // Replace 'string' with a more specific type if available
-  homepage: string;
-  id: number;
-  imdb_id: string | null;
-  original_language: string;
-  original_title: string;
-  overview: string;
-  popularity: number;
-  poster_path: string | null;
-  production_companies: any[]; // You can use a more specific type if available
-  production_countries: any[]; // You can use a more specific type if available
-  release_date: string;
-  revenue: number;
-  runtime: number;
-  spoken_languages: any[]; // You can use a more specific type if available
-  status: string;
-  tagline: string;
-  title: string;
-  video: boolean;
-  vote_average: number;
-  vote_count: number;
-};
-
-export type LatestMoviesResponse = {page: number; results: Array<LatestMovie>; total_pages: number; total_results: number};
-
-interface Movie {
+export interface Movie {
   adult: boolean;
   backdrop_path: string | null;
   genre_ids: number[];
@@ -55,9 +26,16 @@ interface Movie {
   vote_count: number;
 }
 
+export interface MoviesResponse {
+  page: number;
+  results: Array<Movie>;
+  total_pages: number;
+  total_results: number;
+}
+
 export interface FavoriteResponse {
   page: number;
-  results: Movie[];
+  results: Array<Movie>;
   total_pages: number;
   total_results: number;
 }
@@ -113,13 +91,72 @@ export interface MovieDetailsResponse {
   vote_count: number;
 }
 
+export interface MovieAdvancedFilter {
+  certification?: string;
+  'certification.gte'?: string;
+  'certification.lte'?: string;
+  certification_country?: string;
+  include_adult?: boolean;
+  include_video?: boolean;
+  language?: string;
+  page?: number;
+  primary_release_year?: number;
+  'primary_release_date.gte'?: string; // date format
+  'primary_release_date.lte'?: string; // date format
+  region?: string;
+  'release_date.gte'?: string; // date format
+  'release_date.lte'?: string; // date format
+  sort_by?: string;
+  vote_average?: number;
+  'vote_average.gte'?: number;
+  'vote_average.lte'?: number;
+  vote_count?: number;
+  'vote_count.gte'?: number;
+  'vote_count.lte'?: number;
+  watch_region?: string;
+  with_cast?: string; // comma (AND) or pipe (OR) separated query
+  with_companies?: string; // comma (AND) or pipe (OR) separated query
+  with_crew?: string; // comma (AND) or pipe (OR) separated query
+  with_genres?: string; // comma (AND) or pipe (OR) separated query
+  with_keywords?: string; // comma (AND) or pipe (OR) separated query
+  with_origin_country?: string;
+  with_original_language?: string;
+  with_people?: string; // comma (AND) or pipe (OR) separated query
+  with_release_type?: number; // comma (AND) or pipe (OR) separated query, can be used in conjunction with region
+  'with_runtime.gte'?: number;
+  'with_runtime.lte'?: number;
+  with_watch_monetization_types?: string; // use in conjunction with watch_region, comma (AND) or pipe (OR) separated query
+  with_watch_providers?: string; // use in conjunction with watch_region, comma (AND) or pipe (OR) separated query
+  without_companies?: string;
+  without_genres?: string;
+  without_keywords?: string;
+  without_watch_providers?: string;
+  year?: number;
+}
+
+export interface MovieFilter {
+  query: string;
+  include_adult?: boolean;
+  language?: string;
+  primary_release_year?: string;
+  page?: number;
+  region?: string;
+  year?: string;
+}
+
 export const moviesApi = {
-  getLatestMovies: async () => {
-    const response = await axios.get<LatestMoviesResponse>('https://api.themoviedb.org/3/discover/movie', params);
+  getMovies: async () => {
+    const response = await axios.get<MoviesResponse>('https://api.themoviedb.org/3/discover/movie', params);
     return response.data;
   },
   getDetails: async (movieId: number) => {
     const response = await axios.get<MovieDetailsResponse>(`https://api.themoviedb.org/3/movie/${movieId}`, params);
+    return response.data;
+  },
+  getSearchedMovies: async (requestOptions: MovieFilter) => {
+    const searchParams = qs.stringify(requestOptions);
+
+    const response = await axios.get<MoviesResponse>(`https://api.themoviedb.org/3/search/movie?${searchParams}`, params);
     return response.data;
   },
 };

@@ -1,0 +1,1 @@
+export {CinemaList} from './CinemaList';

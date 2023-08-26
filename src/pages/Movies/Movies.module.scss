@@ -1,0 +1,14 @@
+.movies {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+
+  .foundedMovies {
+    flex-grow: 1;
+  }
+
+  & .headline {
+    margin-bottom: 16px;
+  }
+}

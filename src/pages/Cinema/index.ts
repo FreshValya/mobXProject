@@ -1,1 +1,0 @@
-export {Cinema} from './Cinema';

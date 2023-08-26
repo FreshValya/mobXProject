@@ -1,7 +1,6 @@
 import {inject, observer} from 'mobx-react';
 import {Component} from 'react';
-
-import {CinemaPanel} from '@components/CinemaPanel';
+import {CinemaList} from 'src/components/CinemaList';
 
 import {MoviesStore} from '@store/MoviesStore';
 import {SeriesStore} from '@store/SeriesStore';
@@ -40,8 +39,8 @@ export class Home extends Component<HomeProps> {
 
     return (
       <div className={styles.home}>
-        <CinemaPanel mediaType="movie" media={$moviesStore.data.results} />
-        <CinemaPanel mediaType="tv" media={$seriesStore.data.results} />
+        <CinemaList mediaType="movie" media={$moviesStore.data.results} />
+        <CinemaList mediaType="tv" media={$seriesStore.data.results} />
       </div>
     );
   }

@@ -7,13 +7,13 @@ export const Sidebar = () => {
     <div className={styles.sidebar}>
       <ul>
         <li>
-          <NavLink to={'wasted'}>wasted</NavLink>
+          <NavLink to="wasted">wasted</NavLink>
         </li>
         <li>
-          <NavLink to={'cinema'}>movies</NavLink>
+          <NavLink to="cinema">movies</NavLink>
         </li>
         <li>
-          <NavLink to={'cinema'}>series</NavLink>
+          <NavLink to="tv">series</NavLink>
         </li>
       </ul>
     </div>

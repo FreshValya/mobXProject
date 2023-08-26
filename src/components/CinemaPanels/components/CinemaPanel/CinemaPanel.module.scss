@@ -1,0 +1,23 @@
+@import "src/styles/colors";
+
+.cinemaPanel {
+  display: flex;
+  width: 70%;
+  height: 100px;
+  background-color: $dark-1;
+
+  & .info {
+    padding: 8px 8px 0;
+
+    & .title {
+      margin-bottom: 8px;
+    }
+
+    & .overview {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  }
+}

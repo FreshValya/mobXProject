@@ -1,0 +1,9 @@
+@import "src/styles/colors";
+
+.cinemaCard {
+  max-width: 80px;
+
+  & .poster {
+    height: 120px;
+  }
+}

@@ -15,15 +15,15 @@ export class QueryStore<T> {
     makeObservable(this);
   }
 
-  apiFunction: () => Promise<T>;
+  apiFunction: (payload?: any) => Promise<T>;
 
   @action
-  async makeQuery() {
+  async makeQuery(payload?: any) {
     this.isLoading = true;
     this.isError = false;
 
     try {
-      this.data = await this.apiFunction();
+      this.data = await this.apiFunction(payload);
       this.isSuccess = true;
     } catch (error) {
       this.isError = true;

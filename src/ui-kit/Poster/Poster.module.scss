@@ -1,0 +1,15 @@
+.poster {
+  position: relative;
+  user-select: none;
+
+  & .watchedButton {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    z-index: 10;
+  }
+
+  & img {
+    height: 100px;
+  }
+}

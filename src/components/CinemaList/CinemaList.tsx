@@ -1,16 +1,16 @@
-import {LatestMovie} from '@api/movies';
+import {Movie} from '@api/movies';
 import {TVShow} from '@api/series';
 
-import {CinemaCard} from '@components/CinemaPanel/components/CinemaCard/CinemaCard';
+import {CinemaCard} from '@components/CinemaList/components/CinemaCard/CinemaCard';
 
-import styles from './CinemaPanel.module.scss';
+import styles from './CinemaList.module.scss';
 
-interface CinemaPanelProps<T extends LatestMovie | TVShow> {
+interface CinemaPanelProps<T extends Movie | TVShow> {
   mediaType: 'movie' | 'tv';
   media: Array<T>;
 }
 
-export const CinemaPanel = <T extends LatestMovie | TVShow>({mediaType, media}: CinemaPanelProps<T>) => {
+export const CinemaList = <T extends Movie | TVShow>({mediaType, media}: CinemaPanelProps<T>) => {
   const panelTitle = mediaType === 'movie' ? 'movies' : mediaType;
 
   if (media?.length === 0) {
@@ -26,7 +26,7 @@ export const CinemaPanel = <T extends LatestMovie | TVShow>({mediaType, media}: 
             key={show.id}
             id={show.id}
             type={mediaType}
-            original_title={mediaType === 'movie' ? (show as LatestMovie).original_title : (show as TVShow).original_name}
+            original_title={mediaType === 'movie' ? (show as Movie).original_title : (show as TVShow).original_name}
             poster_path={show.poster_path}
           />
         ))}
