@@ -2,12 +2,13 @@
 
 .cinemaPanel {
   display: flex;
-  width: 70%;
   height: 100px;
+  max-width: 70%;
   background-color: $dark-1;
 
   & .info {
     padding: 8px 8px 0;
+    flex-grow: 1;
 
     & .title {
       margin-bottom: 8px;

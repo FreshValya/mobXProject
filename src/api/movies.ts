@@ -154,9 +154,12 @@ export const moviesApi = {
     return response.data;
   },
   getSearchedMovies: async (requestOptions: MovieFilter) => {
-    const searchParams = qs.stringify(requestOptions);
+    const searchParams = qs.stringify(requestOptions, {skipEmptyString: true});
 
-    const response = await axios.get<MoviesResponse>(`https://api.themoviedb.org/3/search/movie?${searchParams}`, params);
+    const response = await axios.get<MoviesResponse>(
+      `https://api.themoviedb.org/3/search/movie?${searchParams}`,
+      params,
+    );
     return response.data;
   },
 };

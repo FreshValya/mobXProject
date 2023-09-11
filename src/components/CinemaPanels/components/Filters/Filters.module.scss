@@ -1,0 +1,23 @@
+.form {
+  display: flex;
+  flex-direction: column;
+
+  & .headline {
+    align-self: center;
+    margin: 0 0 16px;
+  }
+
+  & .filters {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    & .ageRestrict {
+      flex-direction: revert;
+    }
+  }
+
+  & .submitButton {
+    margin-top: 16px;
+  }
+}
