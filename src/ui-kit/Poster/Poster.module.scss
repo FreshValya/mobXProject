@@ -11,5 +11,9 @@
 
   & img {
     height: 100px;
+
+    &:not([src]) {
+      visibility: hidden;
+    }
   }
 }

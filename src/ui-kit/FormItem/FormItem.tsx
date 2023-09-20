@@ -9,6 +9,7 @@ interface FormItemProps {
   children: ReactNode;
 }
 export const FormItem = ({label, className, children}: FormItemProps) => {
+  //TODO MAYBE remove useless wrapper - this component
   return (
     <label className={cn(styles.formItem, className)}>
       {label}

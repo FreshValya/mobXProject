@@ -1,4 +1,4 @@
-import {makeObservable} from 'mobx';
+import {action, makeObservable, observable} from 'mobx';
 
 import {MovieFilter, MoviesResponse, moviesApi} from '@api/movies';
 
@@ -12,4 +12,11 @@ export class DiscoveredMovies extends QueryStore<MoviesResponse> {
   }
 
   apiFunction = (payload: MovieFilter) => moviesApi.getSearchedMovies(payload);
+
+  @observable
+  params: {};
+
+  @action setParams(data: MovieFilter) {
+    this.params = {...this.params, ...data};
+  }
 }

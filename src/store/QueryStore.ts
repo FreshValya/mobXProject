@@ -23,6 +23,7 @@ export class QueryStore<T> {
     this.isError = false;
 
     try {
+      //TODO попровобоавать перевести на @tanstack-query/core
       this.data = await this.apiFunction(payload);
       this.isSuccess = true;
     } catch (error) {

@@ -12,6 +12,7 @@
     "sourceMap": true,
     "allowJs": true,
     "moduleResolution": "node",
+    "downlevelIteration": true,
     "baseUrl": ".",
     "paths": {
       "@api/*": ["./src/api/*"],

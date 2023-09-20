@@ -8,6 +8,8 @@ interface PosterProps {
   onWatchStatusChange: VoidFunction;
 }
 export const Poster = ({poster_path, original_title, isWatched, onWatchStatusChange}: PosterProps) => {
+  //TODO fix images width - make identical
+
   return (
     <div className={styles.poster}>
       <WatchedButton isWatched={isWatched} className={styles.watchedButton} onClick={onWatchStatusChange} />

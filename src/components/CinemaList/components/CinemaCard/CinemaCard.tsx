@@ -13,6 +13,7 @@ interface CinemaCardProps {
 }
 
 export const CinemaCard = ({id, type, original_title, poster_path}: CinemaCardProps) => {
+  //TODO rewire state - implement in mobx
   const [isWatched, setIsWatched] = useState(false);
 
   const handleWatchStatusToggle = () => {
@@ -27,7 +28,12 @@ export const CinemaCard = ({id, type, original_title, poster_path}: CinemaCardPr
 
   return (
     <div className={styles.cinemaCard}>
-      <Poster poster_path={poster_path} original_title={original_title} isWatched={isWatched} onWatchStatusChange={handleWatchStatusToggle} />
+      <Poster
+        poster_path={poster_path}
+        original_title={original_title}
+        isWatched={isWatched}
+        onWatchStatusChange={handleWatchStatusToggle}
+      />
       {original_title}
     </div>
   );

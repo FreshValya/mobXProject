@@ -1,5 +1,3 @@
-import {useState} from 'react';
-
 import Eye from '@assets/Eye.svg';
 import EyeClosed from '@assets/EyeClosed.svg';
 
