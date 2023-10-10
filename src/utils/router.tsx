@@ -1,4 +1,4 @@
-import {ComponentType} from 'react';
+import React, {ComponentType} from 'react';
 import {
   Location,
   NavigateFunction,
@@ -23,9 +23,9 @@ export interface RouterProps {
 export type PropsWithRouter<T> = T & RouterProps;
 type OmitRouter<T> = Omit<T, keyof RouterProps>;
 
-export function withRouter<T>(Component: ComponentType<OmitRouter<T> & RouterProps>) {
-  // TODO EXTRA посмотреть как реакт понимает что хук вызывается из фун/класс компонента
-  return (props: OmitRouter<T>) => {
+export const router =
+  (Component: ComponentType): any =>
+  (props) => {
     const location = useLocation();
     const navigate = useNavigate();
     const params = useParams();
@@ -33,4 +33,3 @@ export function withRouter<T>(Component: ComponentType<OmitRouter<T> & RouterPro
 
     return <Component {...props} router={{location, navigate, params, searchParams, setSearchParams}} />;
   };
-}

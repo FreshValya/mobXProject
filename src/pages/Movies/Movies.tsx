@@ -1,4 +1,5 @@
 import {debounce} from '@utils/debounce';
+import {RouterProps, router} from '@utils/router';
 import {inject, observer} from 'mobx-react';
 import qs from 'query-string';
 import {ChangeEvent, Component} from 'react';
@@ -7,7 +8,6 @@ import {MovieFilter} from '@api/movies';
 
 import {CinemaPanels} from '@components/CinemaPanels';
 import {Filters} from '@components/CinemaPanels/components/Filters';
-import {RouterProps, withRouter} from '@components/HOCs/withRouter';
 
 import {DiscoveredMovies} from '@store/DiscoveredMovies';
 
@@ -21,10 +21,10 @@ interface DiscoverMoviesProps extends RouterProps {
 interface DiscoverMoviesState {
   input: string;
 }
-
+@router
 @inject('$discoveredMovies')
 @observer
-export class _Movies extends Component<DiscoverMoviesProps, DiscoverMoviesState> {
+export class Movies extends Component<DiscoverMoviesProps, DiscoverMoviesState> {
   constructor(props: DiscoverMoviesProps) {
     super(props);
 
@@ -99,5 +99,3 @@ export class _Movies extends Component<DiscoverMoviesProps, DiscoverMoviesState>
     );
   }
 }
-
-export const Movies = withRouter(_Movies);
