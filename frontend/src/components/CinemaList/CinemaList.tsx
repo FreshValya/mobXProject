@@ -1,5 +1,6 @@
 import {Movie} from '@api/movies';
 import {TVShow} from '@api/series';
+
 import styles from './CinemaList.module.scss';
 import {CinemaCard} from './components/CinemaCard/CinemaCard';
 

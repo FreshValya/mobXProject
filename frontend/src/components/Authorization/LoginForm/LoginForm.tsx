@@ -3,6 +3,7 @@ import {ChangeEventHandler, Component, FormEvent} from 'react';
 
 import {AuthStore} from '@store/AuthStore';
 import {ModalStore} from '@store/ModalStore';
+
 import styles from './LoginForm.module.scss';
 
 interface AuthorizationModalProps {

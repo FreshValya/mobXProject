@@ -3,6 +3,7 @@ import {Component, FormEvent} from 'react';
 
 import {AuthStore} from '@store/AuthStore';
 import {ModalStore} from '@store/ModalStore';
+
 import styles from './LogoutForm.modules.scss';
 
 interface LogoutFormProps {

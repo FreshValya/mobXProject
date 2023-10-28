@@ -3,6 +3,7 @@ import {Component} from 'react';
 import {NavLink} from 'react-router-dom';
 
 import {TickerStore} from '@store/TickerStore';
+
 import styles from './Footer.module.scss';
 
 interface FooterProps {

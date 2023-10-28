@@ -3,7 +3,10 @@
   "private": true,
   "version": "0.0.1",
   "workspaces": {
-    "packages": ["frontend", "backend"]
+    "packages": [
+      "frontend",
+      "backend"
+    ]
   },
   "main": "index.js",
   "scripts": {

@@ -2,6 +2,7 @@ import {inject, observer} from 'mobx-react';
 import {Component, MouseEventHandler} from 'react';
 
 import {ModalStore} from '@store/ModalStore';
+
 import styles from './Modal.module.scss';
 
 interface ModalProps {

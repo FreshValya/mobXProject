@@ -2,8 +2,10 @@ import {inject, observer} from 'mobx-react';
 import {Component} from 'react';
 
 import {CinemaList} from '@components/CinemaList';
+
 import {MoviesStore} from '@store/MoviesStore';
 import {SeriesStore} from '@store/SeriesStore';
+
 // FIXME: not working with import-sort plugin
 import {Spinner} from '../../ui-kit/Spinner';
 import styles from './Home.module.scss';

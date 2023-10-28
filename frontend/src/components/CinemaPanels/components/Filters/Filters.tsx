@@ -1,6 +1,7 @@
 import {useForm} from 'react-hook-form';
 
 import {MovieFilter} from '@api/movies';
+
 import {FormItem} from '../../../../ui-kit/FormItem';
 import styles from './Filters.module.scss';
 

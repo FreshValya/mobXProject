@@ -1,5 +1,6 @@
 import {Movie} from '@api/movies';
 import {TVShow} from '@api/series';
+
 import styles from './CinemaPanels.module.scss';
 import {CinemaPanel} from './components/CinemaPanel';
 

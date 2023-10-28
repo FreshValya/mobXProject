@@ -1,6 +1,7 @@
 import {action, makeObservable, observable} from 'mobx';
 
 import {MovieFilter, MoviesResponse, moviesApi} from '@api/movies';
+
 import {QueryStore} from './QueryStore';
 
 export class DiscoveredMovies extends QueryStore<MoviesResponse> {

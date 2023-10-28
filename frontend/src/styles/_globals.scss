@@ -1,4 +1,4 @@
-@import "_colors.scss";
+@import '_colors.scss';
 
 html,
 body {
@@ -21,9 +21,9 @@ a {
   box-sizing: border-box;
 }
 
-input[type=submit],
-input[type=reset],
-input[type=button],
+input[type='submit'],
+input[type='reset'],
+input[type='button'],
 button {
   overflow: visible;
   padding: 0;

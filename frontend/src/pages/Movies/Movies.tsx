@@ -1,13 +1,16 @@
+import {debounce} from '@utils/debounce';
+import {RouterProps, router} from '@utils/router';
 import {inject, observer} from 'mobx-react';
 import qs from 'query-string';
 import {ChangeEvent, Component} from 'react';
 
 import {MovieFilter} from '@api/movies';
+
 import {CinemaPanels} from '@components/CinemaPanels';
 import {Filters} from '@components/CinemaPanels/components/Filters';
+
 import {DiscoveredMovies} from '@store/DiscoveredMovies';
-import {debounce} from '@utils/debounce';
-import {RouterProps, router} from '@utils/router';
+
 import {Spinner} from '../../ui-kit/Spinner';
 import styles from './Movies.module.scss';
 

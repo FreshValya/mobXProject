@@ -42,11 +42,18 @@ export interface FavoriteResponse {
 
 export const favoritesApi = {
   postFavorite: async (accountId: number, payload: PostFavoritePayload) => {
-    const response = await axios.post<FavoritePayload>(`https://api.themoviedb.org/3/account/${accountId}/favorite`, payload, params);
+    const response = await axios.post<FavoritePayload>(
+      `https://api.themoviedb.org/3/account/${accountId}/favorite`,
+      payload,
+      params,
+    );
     return response.data;
   },
   getFavorites: async (accountId: number, cinemaType: 'movies' | 'tv') => {
-    const response = await axios.get<FavoriteResponse>(`https://api.themoviedb.org/3/account/${accountId}/favorite/${cinemaType}`, params);
+    const response = await axios.get<FavoriteResponse>(
+      `https://api.themoviedb.org/3/account/${accountId}/favorite/${cinemaType}`,
+      params,
+    );
     return response.data;
   },
 };

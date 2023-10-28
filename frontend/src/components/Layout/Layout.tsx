@@ -3,6 +3,7 @@ import {Component} from 'react';
 import {Outlet} from 'react-router-dom';
 
 import {ModalStore} from '@store/ModalStore';
+
 import {Modal} from '../Modal/Modal';
 import styles from './Layout.module.scss';
 import {Footer} from './components/Footer';

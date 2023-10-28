@@ -1,6 +1,7 @@
 import {useState} from 'react';
 
 import {favoritesApi} from '@api/favorites';
+
 import {Poster} from '../../../../ui-kit/Poster';
 import styles from './CinemaCard.module.scss';
 

@@ -4,6 +4,7 @@ import {NavLink} from 'react-router-dom';
 
 import {AuthStore} from '@store/AuthStore';
 import {ModalStore} from '@store/ModalStore';
+
 import {LoginForm, LogoutForm} from '../../../Authorization';
 import styles from './Header.module.scss';
 

@@ -1,6 +1,7 @@
 import {computed, makeObservable} from 'mobx';
 
 import {MovieDetailsResponse, moviesApi} from '@api/movies';
+
 import {QueryStore} from './QueryStore';
 
 interface Ticker {

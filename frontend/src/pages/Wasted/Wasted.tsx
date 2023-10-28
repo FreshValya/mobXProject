@@ -2,6 +2,7 @@ import {inject, observer} from 'mobx-react';
 import {Component} from 'react';
 
 import {WastedStore} from '@store/WastedStore';
+
 import styles from './Wasted.module.scss';
 
 interface WastedProps {
