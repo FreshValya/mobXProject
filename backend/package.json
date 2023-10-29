@@ -2,10 +2,12 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
+  "main": "index.js",
   "scripts": {
     "start": "ts-node index.ts",
-    "start:dev": "nodemon index.ts"
+    "start:dev": "nodemon index.ts",
+    "lint": "eslint src/**/*.ts",
+    "format": "eslint src/**/*.ts --fix"
   },
   "keywords": [],
   "author": "",
@@ -22,7 +24,12 @@
   "devDependencies": {
     "@types/cors": "^2.8.15",
     "@types/express-http-proxy": "^1.6.5",
+    "@types/pg": "^8.10.7",
     "@types/request-promise": "^4.1.50",
+    "@typescript-eslint/eslint-plugin": "^6.9.0",
+    "@typescript-eslint/parser": "^6.9.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
     "nodemon": "^3.0.1",
     "ts-node": "^10.9.1"
   }
