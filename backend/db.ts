@@ -1,6 +1,6 @@
-const pg = require('pg');
+import pg from 'pg';
 //TODO: add normal env handling - redundant dotenv imports
-import dotenv = require('dotenv');
+import dotenv from 'dotenv';
 dotenv.config();
 
 const pool = new pg.Pool({

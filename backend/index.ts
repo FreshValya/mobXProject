@@ -1,12 +1,12 @@
-const bodyParser = require('body-parser');
-const express = require('express');
-const cors = require('cors');
-const proxy = require('express-http-proxy');
-const watchedRouter = require('./routes/watched.routes');
+import bodyParser from 'body-parser';
+import express from 'express';
+import cors from 'cors';
+import proxy from 'express-http-proxy';
+import {watchedRouter} from './routes/watched.routes';
+import dotenv from 'dotenv';
 
 const app = express();
 const port = 3000;
-const dotenv = require('dotenv');
 dotenv.config();
 
 app.use(cors());

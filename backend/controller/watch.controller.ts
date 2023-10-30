@@ -58,4 +58,4 @@ class WatchController {
   }
 }
 
-module.exports = new WatchController();
+export default new WatchController();
