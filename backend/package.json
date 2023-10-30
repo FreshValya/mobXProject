@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node index.ts",
-    "start:dev": "nodemon index.ts",
+    "ascii": "ascii-themes generate --text=\"wasted on cinema\" --font=\"Big Money-ne\"  --themeName=Dark+",
+    "start": "ascii && ts-node index.ts",
+    "start:dev": "npm run ascii && nodemon index.ts",
     "lint": "eslint src/**/*.ts",
     "format": "eslint src/**/*.ts --fix"
   },
@@ -28,6 +29,7 @@
     "@types/request-promise": "^4.1.50",
     "@typescript-eslint/eslint-plugin": "^6.9.0",
     "@typescript-eslint/parser": "^6.9.0",
+    "ascii-themes": "^1.0.1",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.1",
     "nodemon": "^3.0.1",
