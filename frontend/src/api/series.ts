@@ -22,6 +22,7 @@ export interface TVShow {
   poster_path: string | null;
   vote_average: number;
   vote_count: number;
+  watched: boolean;
 }
 
 export interface LatestSeriesResponse {
@@ -116,7 +117,7 @@ export interface SeriesDetailsResponse {
 
 export const seriesApi = {
   getLatestSeries: async () => {
-    const response = await axios.get<LatestSeriesResponse>('https://api.themoviedb.org/3/discover/tv', params);
+    const response = await axios.get<LatestSeriesResponse>('http://localhost:3000/api/discover/series', params);
     return response.data;
   },
   getDetails: async (movieId: number) => {

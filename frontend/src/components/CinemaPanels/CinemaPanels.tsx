@@ -26,6 +26,7 @@ export const CinemaPanels = ({mediaType, media}: CinemaPanelsProps<Movie | TVSho
           original_title={mediaType === 'movie' ? (show as Movie).original_title : (show as TVShow).original_name}
           overview={show.overview}
           poster_path={show.poster_path}
+          watched={show.watched}
         />
       ))}
     </div>

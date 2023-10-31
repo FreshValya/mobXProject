@@ -27,6 +27,7 @@ export const CinemaList = <T extends Movie | TVShow>({mediaType, media}: CinemaP
             type={mediaType}
             original_title={mediaType === 'movie' ? (show as Movie).original_title : (show as TVShow).original_name}
             poster_path={show.poster_path}
+            watched={show.watched}
           />
         ))}
       </div>

@@ -1,32 +1,39 @@
-const db = require('../db');
-const rp = require('request-promise');
+import db from '../db';
+import rp from 'request-promise';
+import {Request, Response} from 'express';
 
 class WatchController {
-  async createWatched(req, res) {
-    const {media_id, media_type} = req.body;
-    console.log(req.body);
+  async postWatched(req: Request, res: Response) {
+    const {media_id, media_type, favorite} = req.body;
 
-    db.query(
-      'INSERT INTO watched_cinema (user_id, media_id, media_type) VALUES (20175604, $1, $2)',
-      [media_id, media_type],
-      (error, results) => {
+    if (favorite) {
+      db.query(
+        'INSERT INTO watched_cinema (user_id, media_id, media_type) VALUES (20175604, $1, $2) RETURNING media_id',
+        [media_id, media_type],
+        (error, results) => {
+          if (error) {
+            throw error;
+          }
+
+          res.status(209).send(`Media added with ${results.rows[0].media_id}`);
+        },
+      );
+    } else {
+      db.query('DELETE FROM watched_cinema WHERE media_id = $1 RETURNING media_id', [media_id], (error, results) => {
         if (error) {
           throw error;
         }
-        console.log(results);
-        res.status(201).send(`Media added with ID`);
-      },
-    );
+        res.status(200).send(`Media deleted with ID: ${results.rows[0].media_id}`);
+      });
+    }
   }
-  async getWatched(req, res) {
+  async getWatched(req: Request, res: Response) {
     const watchedMedia = await db.query(
       {
         text: `SELECT * FROM watched_cinema wc WHERE wc.user_id = $1`,
       },
       [20175604],
     );
-
-    console.log(watchedMedia.rows);
 
     const movies = await Promise.all(
       watchedMedia.rows.map((media) =>
@@ -45,16 +52,6 @@ class WatchController {
     );
 
     res.status(200).json(movies);
-  }
-  async deleteWatched(req, res) {
-    const id = parseInt(req.params.id);
-
-    db.query('DELETE FROM watched_cinema WHERE id = $1', [id], (error, results) => {
-      if (error) {
-        throw error;
-      }
-      res.status(200).send(`Media deleted with ID: ${id}`);
-    });
   }
 }
 

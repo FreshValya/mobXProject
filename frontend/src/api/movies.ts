@@ -24,6 +24,7 @@ export interface Movie {
   video: boolean;
   vote_average: number;
   vote_count: number;
+  watched: boolean;
 }
 
 export interface MoviesResponse {
@@ -146,7 +147,7 @@ export interface MovieFilter {
 
 export const moviesApi = {
   getMovies: async () => {
-    const response = await axios.get<MoviesResponse>('https://api.themoviedb.org/3/discover/movie', params);
+    const response = await axios.get<MoviesResponse>('http://localhost:3000/api/discover/movies');
     return response.data;
   },
   getDetails: async (movieId: number) => {
@@ -156,10 +157,7 @@ export const moviesApi = {
   getSearchedMovies: async (requestOptions: MovieFilter) => {
     const searchParams = qs.stringify(requestOptions, {skipEmptyString: true});
 
-    const response = await axios.get<MoviesResponse>(
-      `https://api.themoviedb.org/3/search/movie?${searchParams}`,
-      params,
-    );
+    const response = await axios.get<MoviesResponse>(`http://localhost:3000/api/search/movies?${searchParams}`, params);
     return response.data;
   },
 };

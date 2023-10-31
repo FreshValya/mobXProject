@@ -10,6 +10,7 @@
   },
   "main": "index.js",
   "scripts": {
+    "start": "npm run start:dev -w backend & npm run start:dev -w frontend",
     "start:b": "npm run start:dev -w backend",
     "start:f": "npm run start:dev -w frontend"
   },

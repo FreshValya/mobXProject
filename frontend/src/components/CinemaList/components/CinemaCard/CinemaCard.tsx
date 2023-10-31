@@ -10,11 +10,12 @@ interface CinemaCardProps {
   type: 'movie' | 'tv';
   original_title: string;
   poster_path: string;
+  watched: boolean;
 }
 
-export const CinemaCard = ({id, type, original_title, poster_path}: CinemaCardProps) => {
+export const CinemaCard = ({id, type, original_title, poster_path, watched = false}: CinemaCardProps) => {
   //TODO rewire state - implement in mobx
-  const [isWatched, setIsWatched] = useState(false);
+  const [isWatched, setIsWatched] = useState(watched);
 
   const handleWatchStatusToggle = () => {
     setIsWatched((prev) => !prev);

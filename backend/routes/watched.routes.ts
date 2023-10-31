@@ -1,6 +1,9 @@
 import {Router} from 'express';
 import watchController from '../controller/watch.controller';
 
-export const watchedRouter = new Router();
+const router = new Router();
 
-watchedRouter.get('/watched', watchController.getWatched);
+router.post('/watched', watchController.postWatched);
+router.get('/watched', watchController.getWatched);
+
+export default router;

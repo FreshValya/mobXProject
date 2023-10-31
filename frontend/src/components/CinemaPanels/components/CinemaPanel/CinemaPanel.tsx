@@ -11,10 +11,11 @@ interface CinemaCardProps {
   original_title: string;
   overview: string;
   poster_path: string;
+  watched: boolean;
 }
 
-export const CinemaPanel = ({id, type, original_title, overview, poster_path}: CinemaCardProps) => {
-  const [isWatched, setIsWatched] = useState(false);
+export const CinemaPanel = ({id, type, original_title, overview, poster_path, watched}: CinemaCardProps) => {
+  const [isWatched, setIsWatched] = useState(watched);
 
   const handleWatchStatusToggle = () => {
     setIsWatched((prev) => !prev);

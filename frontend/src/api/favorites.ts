@@ -43,7 +43,9 @@ export interface FavoriteResponse {
 export const favoritesApi = {
   postFavorite: async (accountId: number, payload: PostFavoritePayload) => {
     const response = await axios.post<FavoritePayload>(
-      `https://api.themoviedb.org/3/account/${accountId}/favorite`,
+      // TODO: pass accountId to back
+      // `https://api.themoviedb.org/3/account/${accountId}/favorite`,
+      'http://localhost:3000/api/watched',
       payload,
       params,
     );
