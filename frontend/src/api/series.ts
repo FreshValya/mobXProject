@@ -1,4 +1,5 @@
 import axios from 'axios';
+import qs from 'query-string';
 
 const params = {
   headers: {
@@ -25,7 +26,7 @@ export interface TVShow {
   watched: boolean;
 }
 
-export interface LatestSeriesResponse {
+export interface SeriesResponse {
   page: number;
   results: TVShow[];
   total_pages: number;
@@ -115,13 +116,29 @@ export interface SeriesDetailsResponse {
   vote_count: number;
 }
 
+export interface SeriesFilter {
+  query: string;
+  include_adult?: boolean;
+  language?: string;
+  primary_release_year?: string;
+  page?: number;
+  region?: string;
+  year?: string;
+}
+
 export const seriesApi = {
   getLatestSeries: async () => {
-    const response = await axios.get<LatestSeriesResponse>('http://localhost:3000/api/discover/series', params);
+    const response = await axios.get<SeriesResponse>('http://localhost:3000/api/discover/series', params);
     return response.data;
   },
   getDetails: async (movieId: number) => {
     const response = await axios.get<SeriesDetailsResponse>(`https://api.themoviedb.org/3/tv/${movieId}`, params);
+    return response.data;
+  },
+  getSearchedSeries: async (requestOptions: SeriesFilter) => {
+    const searchParams = qs.stringify(requestOptions, {skipEmptyString: true});
+
+    const response = await axios.get<SeriesResponse>(`http://localhost:3000/api/search/series?${searchParams}`, params);
     return response.data;
   },
 };

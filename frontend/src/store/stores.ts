@@ -1,3 +1,5 @@
+import {DiscoveredSeries} from '@store/DiscoveredSeries';
+
 import {AuthStore} from './AuthStore';
 import {DiscoveredMovies} from './DiscoveredMovies';
 import {ModalStore} from './ModalStore';
@@ -9,6 +11,7 @@ import {WastedStore} from './WastedStore';
 export const stores = {
   $authStore: new AuthStore(),
   $discoveredMovies: new DiscoveredMovies(),
+  $discoveredSeries: new DiscoveredSeries(),
   $modalStore: new ModalStore(),
   $moviesStore: new MoviesStore(),
   $seriesStore: new SeriesStore(),

@@ -1,0 +1,15 @@
+.series {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  gap: 16px;
+  padding: 16px 16px 0 0;
+
+  & .headline {
+    margin-bottom: 16px;
+  }
+
+  & .seriesList {
+    flex-grow: 1;
+  }
+}
