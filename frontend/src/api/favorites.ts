@@ -1,14 +1,10 @@
 import axios from 'axios';
+import qs from 'query-string';
 
-const params = {
-  headers: {
-    accept: 'application/json',
-    Authorization:
-      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyYjQxNWMwMGViOTIyMDAxZjU3ZTdjNGNmM2ExYzAyMCIsInN1YiI6IjY0Yjk3NDRmMDZmOTg0MDBjNGYxNDgzYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.V5gGKAlVXfB395emdvJyMLe6KTZkUxg6xUQBzMOiYzU',
-  },
+type AddFavoritePayload = {
+  media_type: 'movie' | 'tv';
+  media_id: number;
 };
-
-type PostFavoritePayload = {media_type: 'movie' | 'tv'; media_id: number; favorite: boolean};
 
 type FavoritePayload = {
   success: boolean;
@@ -40,22 +36,34 @@ export interface FavoriteResponse {
   total_results: number;
 }
 
+export interface DeleteFavoriteOptions {
+  media_id: number;
+  media_type: 'movie' | 'tv';
+}
+
 export const favoritesApi = {
-  postFavorite: async (accountId: number, payload: PostFavoritePayload) => {
+  addFavorite: async (accountId: number, payload: AddFavoritePayload) => {
     const response = await axios.post<FavoritePayload>(
       // TODO: pass accountId to back
       // `https://api.themoviedb.org/3/account/${accountId}/favorite`,
       'http://localhost:3000/api/watched',
       payload,
-      params,
     );
+
     return response.data;
   },
   getFavorites: async (accountId: number, cinemaType: 'movies' | 'tv') => {
     const response = await axios.get<FavoriteResponse>(
       `https://api.themoviedb.org/3/account/${accountId}/favorite/${cinemaType}`,
-      params,
     );
+    return response.data;
+  },
+  deleteFavorite: async (requestOptions: DeleteFavoriteOptions) => {
+    const params = qs.stringify(requestOptions, {skipEmptyString: true});
+    console.log(params);
+
+    const response = await axios.delete('http://localhost:3000/api/watched', {params: requestOptions});
+
     return response.data;
   },
 };

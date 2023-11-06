@@ -20,10 +20,10 @@ export const CinemaPanel = ({id, type, original_title, overview, poster_path, wa
   const handleWatchStatusToggle = () => {
     setIsWatched((prev) => !prev);
 
-    if (!isWatched) {
-      favoritesApi.postFavorite(20175604, {media_type: type, media_id: id, favorite: true});
+    if (isWatched) {
+      favoritesApi.deleteFavorite({media_type: type, media_id: id});
     } else {
-      favoritesApi.postFavorite(20175604, {media_type: type, media_id: id, favorite: false});
+      favoritesApi.addFavorite(20175604, {media_type: type, media_id: id});
     }
   };
 
