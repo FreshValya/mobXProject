@@ -23,7 +23,7 @@ export class Footer extends Component<FooterProps> {
     return (
       <div className={styles.footer}>
         <NavLink to="about">about page</NavLink>
-
+        {/* TODO use WebAnimationsAPI for displaying next random movie description */}
         <div className={styles.tickerWrap}>
           {$tickerStore.isData && (
             <div className={styles.ticker}>

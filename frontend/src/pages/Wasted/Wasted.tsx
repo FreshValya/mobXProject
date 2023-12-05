@@ -1,34 +1,37 @@
 import {inject, observer} from 'mobx-react';
 import {Component} from 'react';
 
-import {WastedStore} from '@store/WastedStore';
+import {WastedMovieStore} from '@store/WastedMovieStore';
+import {WastedTVStore} from '@store/WastedTVStore';
 
 import styles from './Wasted.module.scss';
 
 interface WastedProps {
-  $wastedStore?: WastedStore;
+  $wastedMovieStore?: WastedMovieStore;
+  $wastedTVStore?: WastedTVStore;
 }
 
-@inject('$wastedStore')
+@inject('$wastedMovieStore', '$wastedTVStore')
 @observer
 export class Wasted extends Component<WastedProps> {
   componentDidMount() {
-    this.props.$wastedStore.getData();
+    this.props.$wastedMovieStore.getData();
+    this.props.$wastedTVStore.getData();
   }
 
   render() {
-    const {$wastedStore} = this.props;
+    const {$wastedMovieStore, $wastedTVStore} = this.props;
 
     return (
       <div className={styles.wasted}>
-        <div>total wasted time: {$wastedStore.totalLength} min</div>
+        <div>total wasted time: {$wastedMovieStore.totalMoviesLength + $wastedTVStore.totalSeriesLength} min</div>
         <div>
-          total watched movies: {$wastedStore.totalMovies}, total time {$wastedStore.totalMoviesLength} min, average
-          time {$wastedStore.averageMoviesLength} min
+          total watched movies: {$wastedMovieStore.totalMovies}, total time {$wastedMovieStore.totalMoviesLength} min,
+          average time {$wastedMovieStore.averageMoviesLength} min
         </div>
         <div>
-          total watched series: {$wastedStore.totalSeries}, total time {$wastedStore.totalSeriesLength} min, average
-          time {$wastedStore.averageSeriesLength} min
+          total watched series: {$wastedTVStore.totalSeries}, total time {$wastedTVStore.totalSeriesLength} min, average
+          time {$wastedTVStore.averageSeriesLength} min
         </div>
       </div>
     );

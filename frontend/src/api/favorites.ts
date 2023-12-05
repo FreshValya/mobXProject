@@ -1,6 +1,9 @@
 import axios from 'axios';
 import qs from 'query-string';
 
+import {MovieDetailsResponse} from '@api/movies';
+import {SeriesDetailsResponse} from '@api/series';
+
 type AddFavoritePayload = {
   media_type: 'movie' | 'tv';
   media_id: number;
@@ -12,29 +15,7 @@ type FavoritePayload = {
   status_message: string;
 };
 
-interface Movie {
-  adult: boolean;
-  backdrop_path: string | null;
-  genre_ids: number[];
-  id: number;
-  original_language: string;
-  original_title: string;
-  overview: string;
-  popularity: number;
-  poster_path: string | null;
-  release_date: string;
-  title: string;
-  video: boolean;
-  vote_average: number;
-  vote_count: number;
-}
-
-export interface FavoriteResponse {
-  page: number;
-  results: Movie[];
-  total_pages: number;
-  total_results: number;
-}
+export type FavoriteResponse<T extends MovieDetailsResponse | SeriesDetailsResponse> = Array<T>;
 
 export interface DeleteFavoriteOptions {
   media_id: number;
@@ -52,9 +33,14 @@ export const favoritesApi = {
 
     return response.data;
   },
-  getFavorites: async (accountId: number, cinemaType: 'movies' | 'tv') => {
-    const response = await axios.get<FavoriteResponse>(
-      `https://api.themoviedb.org/3/account/${accountId}/favorite/${cinemaType}`,
+  getFavorites: async <T extends MovieDetailsResponse | SeriesDetailsResponse>(
+    accountId: number,
+    cinemaType: 'movie' | 'tv',
+  ) => {
+    const response = await axios.get<FavoriteResponse<T>>(
+      // `https://api.themoviedb.org/3/account/${accountId}/favorite/${cinemaType}`,
+      'http://localhost:3000/api/watched',
+      {params: {media_type: cinemaType}},
     );
     return response.data;
   },

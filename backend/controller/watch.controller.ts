@@ -7,6 +7,7 @@ class WatchController {
     const {media_id, media_type} = req.body;
 
     db.query(
+      // TODO RETURN ALL FROM QUERY???
       'INSERT INTO watched_cinema (user_id, media_id, media_type) VALUES ($1, $2, $3) RETURNING media_id',
       [20175604, media_id, media_type],
       (error, results) => {
@@ -20,17 +21,18 @@ class WatchController {
   }
 
   async getWatched(req: Request, res: Response) {
+    const {media_type} = req.query;
     const watchedMedia = await db.query(
       {
-        text: `SELECT * FROM watched_cinema wc WHERE wc.user_id = $1`,
+        text: `SELECT * FROM watched_cinema wc WHERE wc.user_id = $1 AND wc.media_type = $2`,
       },
-      [20175604],
+      [20175604, media_type],
     );
 
-    const movies = await Promise.all(
+    const media = await Promise.all(
       watchedMedia.rows.map((media) =>
         rp({
-          uri: `https://api.themoviedb.org/3/movie/${media.media_id}`,
+          uri: `https://api.themoviedb.org/3/${media.media_type}/${media.media_id}`,
           headers: {
             accept: 'application/json',
             Authorization: process.env.AUTH_TOKEN,
@@ -43,7 +45,7 @@ class WatchController {
       ),
     );
 
-    res.status(200).json(movies);
+    res.status(200).json(media);
   }
 
   async deleteWatched(req: Request, res: Response) {

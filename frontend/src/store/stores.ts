@@ -1,4 +1,5 @@
 import {DiscoveredSeries} from '@store/DiscoveredSeries';
+import {WastedTVStore} from '@store/WastedTVStore';
 
 import {AuthStore} from './AuthStore';
 import {DiscoveredMovies} from './DiscoveredMovies';
@@ -6,7 +7,7 @@ import {ModalStore} from './ModalStore';
 import {MoviesStore} from './MoviesStore';
 import {SeriesStore} from './SeriesStore';
 import {TickerStore} from './TickerStore';
-import {WastedStore} from './WastedStore';
+import {WastedMovieStore} from './WastedMovieStore';
 
 export const stores = {
   $authStore: new AuthStore(),
@@ -16,5 +17,6 @@ export const stores = {
   $moviesStore: new MoviesStore(),
   $seriesStore: new SeriesStore(),
   $tickerStore: new TickerStore(),
-  $wastedStore: new WastedStore(),
+  $wastedMovieStore: new WastedMovieStore(),
+  $wastedTVStore: new WastedTVStore(),
 };
