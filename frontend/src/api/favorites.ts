@@ -1,6 +1,6 @@
-import axios from 'axios';
 import qs from 'query-string';
 
+import {axiosInstance} from '@api/base';
 import {MovieDetailsResponse} from '@api/movies';
 import {SeriesDetailsResponse} from '@api/series';
 
@@ -24,10 +24,10 @@ export interface DeleteFavoriteOptions {
 
 export const favoritesApi = {
   addFavorite: async (accountId: number, payload: AddFavoritePayload) => {
-    const response = await axios.post<FavoritePayload>(
+    const response = await axiosInstance.post<FavoritePayload>(
       // TODO: pass accountId to back
       // `https://api.themoviedb.org/3/account/${accountId}/favorite`,
-      'http://localhost:3000/api/watched',
+      'watched',
       payload,
     );
 
@@ -37,9 +37,9 @@ export const favoritesApi = {
     accountId: number,
     cinemaType: 'movie' | 'tv',
   ) => {
-    const response = await axios.get<FavoriteResponse<T>>(
+    const response = await axiosInstance.get<FavoriteResponse<T>>(
       // `https://api.themoviedb.org/3/account/${accountId}/favorite/${cinemaType}`,
-      'http://localhost:3000/api/watched',
+      'watched',
       {params: {media_type: cinemaType}},
     );
     return response.data;
@@ -48,7 +48,7 @@ export const favoritesApi = {
     const params = qs.stringify(requestOptions, {skipEmptyString: true});
     console.log(params);
 
-    const response = await axios.delete('http://localhost:3000/api/watched', {params: requestOptions});
+    const response = await axiosInstance.delete('watched', {params: requestOptions});
 
     return response.data;
   },

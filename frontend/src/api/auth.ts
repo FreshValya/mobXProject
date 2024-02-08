@@ -1,4 +1,4 @@
-import axios from 'axios';
+import {axiosInstance} from '@api/base';
 
 const headers = {
   headers: {
@@ -48,13 +48,46 @@ type LogoutResponse = {
   success: boolean;
 };
 
+export interface SignUpPayload {
+  email: string;
+  username: string;
+  password: string;
+}
+
+interface SignUpResponse {
+  success: boolean;
+  result: null;
+  message: string;
+}
+
+export interface SignInPayload {
+  email: string;
+  username: string;
+  password: string;
+}
+
+interface SignInResponse {
+  success: boolean;
+  result: null;
+  message: string;
+}
+
+interface SignOutResponse {
+  success: boolean;
+  result: null;
+  message: string;
+}
+
 export const authApi = {
   getRequestToken: async () => {
-    const response = await axios.get<RequestResponse>('https://api.themoviedb.org/3/authentication/token/new', headers);
+    const response = await axiosInstance.get<RequestResponse>(
+      'https://api.themoviedb.org/3/authentication/token/new',
+      headers,
+    );
     return response.data;
   },
   createSession: async (requestToken: string, payload: CreateSessionPayload) => {
-    const response = await axios.post<SessionResponse>(
+    const response = await axiosInstance.post<SessionResponse>(
       'https://api.themoviedb.org/3/authentication/token/validate_with_login',
       {
         ...payload,
@@ -66,7 +99,7 @@ export const authApi = {
     return response.data;
   },
   deleteSession: async (sessionID: number) => {
-    const response = await axios.delete<LogoutResponse>('https://api.themoviedb.org/3/authentication/session', {
+    const response = await axiosInstance.delete<LogoutResponse>('https://api.themoviedb.org/3/authentication/session', {
       data: {
         session_id: sessionID,
       },
@@ -75,10 +108,22 @@ export const authApi = {
     return response.data;
   },
   getAccountId: async (sessionID: string) => {
-    const response = await axios.get<AccountResponse>('https://api.themoviedb.org/3/account', {
+    const response = await axiosInstance.get<AccountResponse>('https://api.themoviedb.org/3/account', {
       params: {api_key: '2b415c00eb922001f57e7c4cf3a1c020', session_id: sessionID},
     });
     return response.data;
+  },
+  signUp: async (payload: SignUpPayload) => {
+    const response = await axiosInstance.post<SignUpResponse>('signUp', payload);
+    return response;
+  },
+  signIn: async (payload: SignInPayload) => {
+    const response = await axiosInstance.post<SignInResponse>('signIn', payload);
+    return response;
+  },
+  signOut: async () => {
+    const response = await axiosInstance.post<SignOutResponse>('signOut');
+    return response;
   },
 };
 

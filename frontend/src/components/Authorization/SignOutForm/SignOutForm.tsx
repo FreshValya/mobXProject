@@ -4,7 +4,7 @@ import {Component, FormEvent} from 'react';
 import {AuthStore} from '@store/AuthStore';
 import {ModalStore} from '@store/ModalStore';
 
-import styles from './LogoutForm.modules.scss';
+import styles from './SignOutForm.modules.scss';
 
 interface LogoutFormProps {
   $authStore?: AuthStore;
@@ -13,14 +13,14 @@ interface LogoutFormProps {
 
 @inject('$authStore', '$modalStore')
 @observer
-export class LogoutForm extends Component<LogoutFormProps> {
+export class SignOutForm extends Component<LogoutFormProps> {
   render() {
     const {$authStore, $modalStore} = this.props;
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
 
-      await $authStore.logout();
+      await $authStore.signOut();
 
       $modalStore.closeModal();
     };

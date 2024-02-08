@@ -5,7 +5,7 @@ import {NavLink} from 'react-router-dom';
 import {AuthStore} from '@store/AuthStore';
 import {ModalStore} from '@store/ModalStore';
 
-import {LoginForm, LogoutForm} from '../../../Authorization';
+import {SignInForm, SignOutForm} from '../../../Authorization';
 import styles from './Header.module.scss';
 
 interface HeaderProps {
@@ -20,18 +20,18 @@ export class Header extends Component<HeaderProps> {
     const {$authStore, $modalStore} = this.props;
     const handleModal = () => {
       if ($authStore.isAuthenticated) {
-        $modalStore.openModal(<LogoutForm />);
+        $modalStore.openModal(<SignOutForm />);
       } else {
-        $modalStore.openModal(<LoginForm />);
+        $modalStore.openModal(<SignInForm />);
       }
     };
 
     return (
       <div className={styles.header}>
-        <NavLink to={'/'}>home</NavLink>
+        <NavLink to="/">home</NavLink>
 
         <button type="button" onClick={handleModal}>
-          {$authStore.isAuthenticated ? 'logout' : 'login'}
+          {$authStore.isAuthenticated ? 'sign out' : 'sign in'}
         </button>
       </div>
     );

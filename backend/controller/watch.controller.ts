@@ -35,7 +35,7 @@ class WatchController {
           uri: `https://api.themoviedb.org/3/${media.media_type}/${media.media_id}`,
           headers: {
             accept: 'application/json',
-            Authorization: process.env.AUTH_TOKEN,
+            Authorization: process.env.TMDB_AUTH_TOKEN,
           },
         })
           .then((response) => JSON.parse(response))

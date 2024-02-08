@@ -1,0 +1,24 @@
+@import 'src/styles/colors';
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  & .input {
+    display: flex;
+    justify-content: space-between;
+    gap: 4px;
+  }
+}
+
+.buttons {
+  align-self: flex-end;
+  display: flex;
+  gap: 8px;
+
+  & button {
+    cursor: pointer;
+    color: $dark-1;
+  }
+}

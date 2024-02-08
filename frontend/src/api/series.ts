@@ -1,13 +1,6 @@
-import axios from 'axios';
 import qs from 'query-string';
 
-const params = {
-  headers: {
-    accept: 'application/json',
-    Authorization:
-      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyYjQxNWMwMGViOTIyMDAxZjU3ZTdjNGNmM2ExYzAyMCIsInN1YiI6IjY0Yjk3NDRmMDZmOTg0MDBjNGYxNDgzYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.V5gGKAlVXfB395emdvJyMLe6KTZkUxg6xUQBzMOiYzU',
-  },
-};
+import {axiosInstance} from '@api/base';
 
 export interface TVShow {
   backdrop_path: string | null;
@@ -128,17 +121,17 @@ export interface SeriesFilter {
 
 export const seriesApi = {
   getLatestSeries: async () => {
-    const response = await axios.get<SeriesResponse>('http://localhost:3000/api/discover/series', params);
+    const response = await axiosInstance.get<SeriesResponse>('discover/series');
     return response.data;
   },
   getDetails: async (movieId: number) => {
-    const response = await axios.get<SeriesDetailsResponse>(`https://api.themoviedb.org/3/tv/${movieId}`, params);
+    const response = await axiosInstance.get<SeriesDetailsResponse>(`https://api.themoviedb.org/3/tv/${movieId}`);
     return response.data;
   },
   getSearchedSeries: async (requestOptions: SeriesFilter) => {
     const searchParams = qs.stringify(requestOptions, {skipEmptyString: true});
 
-    const response = await axios.get<SeriesResponse>(`http://localhost:3000/api/search/series?${searchParams}`, params);
+    const response = await axiosInstance.get<SeriesResponse>(`search/series?${searchParams}`);
     return response.data;
   },
 };

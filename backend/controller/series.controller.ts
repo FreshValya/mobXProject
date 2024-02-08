@@ -16,7 +16,7 @@ class SeriesController {
 
     const series = await rp({
       url: 'https://api.themoviedb.org/3/discover/tv',
-      headers: {accept: 'application/json', Authorization: process.env.AUTH_TOKEN},
+      headers: {accept: 'application/json', Authorization: process.env.TMDB_AUTH_TOKEN},
     })
       .then((response) => JSON.parse(response))
       .catch((error) => console.log(error));
@@ -42,7 +42,7 @@ class SeriesController {
       uri: `https://api.themoviedb.org/3/search/tv`,
       headers: {
         accept: 'application/json',
-        Authorization: process.env.AUTH_TOKEN,
+        Authorization: process.env.TMDB_AUTH_TOKEN,
       },
       qs: searchParams,
     })

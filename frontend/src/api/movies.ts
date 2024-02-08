@@ -1,13 +1,6 @@
-import axios from 'axios';
 import qs from 'query-string';
 
-const params = {
-  headers: {
-    accept: 'application/json',
-    Authorization:
-      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyYjQxNWMwMGViOTIyMDAxZjU3ZTdjNGNmM2ExYzAyMCIsInN1YiI6IjY0Yjk3NDRmMDZmOTg0MDBjNGYxNDgzYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.V5gGKAlVXfB395emdvJyMLe6KTZkUxg6xUQBzMOiYzU',
-  },
-};
+import {axiosInstance} from '@api/base';
 
 export interface Movie {
   adult: boolean;
@@ -147,17 +140,17 @@ export interface MovieFilter {
 
 export const moviesApi = {
   getMovies: async () => {
-    const response = await axios.get<MoviesResponse>('http://localhost:3000/api/discover/movies');
+    const response = await axiosInstance.get<MoviesResponse>('discover/movies');
     return response.data;
   },
   getDetails: async (movieId: number) => {
-    const response = await axios.get<MovieDetailsResponse>(`https://api.themoviedb.org/3/movie/${movieId}`, params);
+    const response = await axiosInstance.get<MovieDetailsResponse>(`https://api.themoviedb.org/3/movie/${movieId}`);
     return response.data;
   },
   getSearchedMovies: async (requestOptions: MovieFilter) => {
     const searchParams = qs.stringify(requestOptions, {skipEmptyString: true});
 
-    const response = await axios.get<MoviesResponse>(`http://localhost:3000/api/search/movies?${searchParams}`, params);
+    const response = await axiosInstance.get<MoviesResponse>(`search/movies?${searchParams}`);
     return response.data;
   },
 };

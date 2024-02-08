@@ -1,9 +1,10 @@
 import db from '../db';
 import rp from 'request-promise';
 import {Request, Response} from 'express';
+import {QueryResult} from 'pg';
 
 class MoviesController {
-  async getLatestMovies(req: Request, res: Response) {
+  async getLatestMovies(_req: Request, res: Response) {
     const watchedMediaId = await db
       .query(
         {
@@ -18,7 +19,7 @@ class MoviesController {
       uri: `https://api.themoviedb.org/3/discover/movie`,
       headers: {
         accept: 'application/json',
-        Authorization: process.env.AUTH_TOKEN,
+        Authorization: process.env.TMDB_AUTH_TOKEN,
       },
     }).then((response) => JSON.parse(response));
 
@@ -29,8 +30,8 @@ class MoviesController {
   async getSearchedMovies(req: Request, res: Response) {
     const searchParams = req.query;
 
-    const watchedMediaId = await db
-      .query(
+    let watchedMediaId = await db
+      .query<Array<number>>(
         {
           text: 'SELECT wc.media_id FROM watched_cinema wc WHERE wc.user_id = $1 AND wc.media_type = $2',
           rowMode: 'array',
@@ -43,7 +44,7 @@ class MoviesController {
       uri: `https://api.themoviedb.org/3/search/movie`,
       headers: {
         accept: 'application/json',
-        Authorization: process.env.AUTH_TOKEN,
+        Authorization: process.env.TMDB_AUTH_TOKEN,
       },
       qs: searchParams,
     })
