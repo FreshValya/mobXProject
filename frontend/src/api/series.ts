@@ -19,11 +19,17 @@ export interface TVShow {
   watched: boolean;
 }
 
+// export interface SeriesResponse {
+//   page: number;
+//   results: TVShow[];
+//   total_pages: number;
+//   total_results: number;
+// }
+
 export interface SeriesResponse {
-  page: number;
-  results: TVShow[];
-  total_pages: number;
-  total_results: number;
+  success: boolean;
+  result: Array<TVShow>;
+  message: string;
 }
 
 export interface SeriesDetailsResponse {

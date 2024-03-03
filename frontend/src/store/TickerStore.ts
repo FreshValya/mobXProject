@@ -1,6 +1,6 @@
 import {computed, makeObservable} from 'mobx';
 
-import {MovieDetailsResponse, moviesApi} from '@api/movies';
+import {RandomMovieResponse, moviesApi} from '@api/movies';
 
 import {QueryStore} from './QueryStore';
 
@@ -10,22 +10,21 @@ interface Ticker {
   releaseYear: string;
 }
 
-export class TickerStore extends QueryStore<MovieDetailsResponse> {
+export class TickerStore extends QueryStore<RandomMovieResponse> {
   constructor() {
     super();
 
     makeObservable(this);
   }
 
-  randomID = Math.floor(Math.random() * 1000) + 1;
-  apiFunction = () => moviesApi.getDetails(this.randomID);
+  apiFunction = () => moviesApi.getRandomMovie();
 
   @computed
   get ticker(): Ticker {
     return {
-      title: this.data.title || '',
-      overview: this.data.overview || '',
-      releaseYear: this.data.release_date.split('-')[0] || '',
+      title: this.data.result.title,
+      overview: this.data.result.overview,
+      releaseYear: this.data.result.year,
     };
   }
 }

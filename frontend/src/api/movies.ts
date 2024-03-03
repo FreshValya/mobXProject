@@ -20,11 +20,17 @@ export interface Movie {
   watched: boolean;
 }
 
+// export interface MoviesResponse {
+//   page: number;
+//   results: Array<Movie>;
+//   total_pages: number;
+//   total_results: number;
+// }
+
 export interface MoviesResponse {
-  page: number;
-  results: Array<Movie>;
-  total_pages: number;
-  total_results: number;
+  success: boolean;
+  result: Array<Movie>;
+  message: string;
 }
 
 export interface FavoriteResponse {
@@ -138,6 +144,16 @@ export interface MovieFilter {
   year?: string;
 }
 
+export interface RandomMovieResponse {
+  success: boolean;
+  result: {
+    title: string;
+    overview: string;
+    year: string;
+  };
+  message: string;
+}
+
 export const moviesApi = {
   getMovies: async () => {
     const response = await axiosInstance.get<MoviesResponse>('discover/movies');
@@ -145,6 +161,10 @@ export const moviesApi = {
   },
   getDetails: async (movieId: number) => {
     const response = await axiosInstance.get<MovieDetailsResponse>(`https://api.themoviedb.org/3/movie/${movieId}`);
+    return response.data;
+  },
+  getRandomMovie: async () => {
+    const response = await axiosInstance.get<RandomMovieResponse>('randomMovie');
     return response.data;
   },
   getSearchedMovies: async (requestOptions: MovieFilter) => {

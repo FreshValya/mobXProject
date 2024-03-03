@@ -24,11 +24,11 @@ export class WastedTVStore {
     try {
       const favoritesSeries = await favoritesApi.getFavorites<SeriesDetailsResponse>(20175604, 'tv');
 
-      this.totalSeries = favoritesSeries.length;
+      this.totalSeries = favoritesSeries.result.length;
       const titleSeriesTimes = [];
       let totalEpisodes = 0;
 
-      for (const series of favoritesSeries) {
+      for (const series of favoritesSeries.result) {
         const avgEpisodeTime = series.episode_run_time.reduce((prev, curr) => prev + curr, 0);
 
         totalEpisodes += series.number_of_episodes;

@@ -34,8 +34,7 @@ export class AuthStore {
     this.isLoading = true;
 
     try {
-      const response = await authApi.signUp(payload);
-      console.log(response);
+      await authApi.signUp(payload);
     } catch (error) {
       this.isError = true;
       console.error(`Error happened: ${error}`);

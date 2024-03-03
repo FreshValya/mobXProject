@@ -1,5 +1,3 @@
-import qs from 'query-string';
-
 import {axiosInstance} from '@api/base';
 import {MovieDetailsResponse} from '@api/movies';
 import {SeriesDetailsResponse} from '@api/series';
@@ -15,7 +13,11 @@ type FavoritePayload = {
   status_message: string;
 };
 
-export type FavoriteResponse<T extends MovieDetailsResponse | SeriesDetailsResponse> = Array<T>;
+export type FavoriteResponse<T extends MovieDetailsResponse | SeriesDetailsResponse> = {
+  success: boolean;
+  result: Array<T>;
+  message: string;
+};
 
 export interface DeleteFavoriteOptions {
   media_id: number;
@@ -45,9 +47,6 @@ export const favoritesApi = {
     return response.data;
   },
   deleteFavorite: async (requestOptions: DeleteFavoriteOptions) => {
-    const params = qs.stringify(requestOptions, {skipEmptyString: true});
-    console.log(params);
-
     const response = await axiosInstance.delete('watched', {params: requestOptions});
 
     return response.data;

@@ -1,16 +1,17 @@
-import db from '../db';
 import bcrypt from 'bcrypt';
 import {Request, Response} from 'express';
 import jwt from 'jsonwebtoken';
+import {UserModel} from '../models/UserModel';
 
 class authController {
   async signUp(req: Request, res: Response) {
     const {email, username, password} = req.body;
 
     // TODO rewrite query
-    const existingUser = await db
-      .query('SELECT u.* from users u WHERE u.email = $1', [email])
-      .then((result) => result.rowCount > 0);
+    // const existingUser = await db
+    //   .query('SELECT u.* from users u WHERE u.email = $1', [email])
+    //   .then((result) => result.rowCount > 0);
+    const existingUser = await UserModel.findByEmail(email);
 
     if (existingUser) {
       return res.status(409).json({
@@ -22,30 +23,43 @@ class authController {
 
     const hashedPassword = bcrypt.hashSync(password, 10);
 
-    db.query(
-      'INSERT INTO users (email, username, password) VALUES ($1, $2, $3)',
-      [email, username, hashedPassword],
-      (error) => {
-        if (error) {
-          res.status(500).json({
-            success: false,
-            result: null,
-            message: 'Registration failed',
-          });
-        }
-
+    UserModel.createUser({email, username, password: hashedPassword})
+      .then(() => {
         res.status(201).json({success: true, message: 'User registered successfully'});
-      },
-    );
+      })
+      .catch(() => {
+        res.status(500).json({
+          success: false,
+          result: null,
+          message: 'Registration failed',
+        });
+      });
+
+    // db.query(
+    //   'INSERT INTO users (email, username, password) VALUES ($1, $2, $3)',
+    //   [email, username, hashedPassword],
+    //   (error) => {
+    //     if (error) {
+    //       res.status(500).json({
+    //         success: false,
+    //         result: null,
+    //         message: 'Registration failed',
+    //       });
+    //     }
+    //
+    //     res.status(201).json({success: true, message: 'User registered successfully'});
+    //   },
+    // );
   }
 
   async signIn(req: Request, res: Response) {
     const {email, password} = req.body;
 
     // TODO rewrite query
-    const user = await db
-      .query('SELECT u.* from users u WHERE u.email =  $1', [email])
-      .then((result) => result.rows[0]);
+    // const user = await db
+    //   .query('SELECT u.* from users u WHERE u.email =  $1', [email])
+    //   .then((result) => result.rows[0]);
+    const user = await UserModel.findByEmail(email);
 
     if (!user) {
       return res
@@ -64,7 +78,7 @@ class authController {
       });
     }
 
-    const token = jwt.sign({email}, process.env.JWT_SECRET, {expiresIn: '1h'});
+    const token = jwt.sign({userId: user.id, email}, process.env.JWT_SECRET, {expiresIn: '1h'});
 
     res.cookie('wasted_token', token, {
       // maxAge: req.body.remember ? 365 * 24 * 60 * 60 * 1000 : null,

@@ -25,6 +25,14 @@ interface DiscoverTVState {
 @inject('$discoveredSeries')
 @observer
 export class TV extends Component<DiscoverTVProps, DiscoverTVState> {
+  fetchSearchedMovies = debounce((query: string) => {
+    this.queryParams = {query};
+
+    this.props.$discoveredSeries.setParams({query});
+
+    this.fetch();
+  });
+
   constructor(props: DiscoverTVProps) {
     super(props);
 
@@ -41,14 +49,6 @@ export class TV extends Component<DiscoverTVProps, DiscoverTVState> {
 
     this.fetchSearchedMovies(value);
   };
-
-  fetchSearchedMovies = debounce((query: string) => {
-    this.queryParams = {query};
-
-    this.props.$discoveredSeries.setParams({query});
-
-    this.fetch();
-  });
 
   get queryParams(): SeriesFilter {
     const {searchParams} = this.props.router;
@@ -91,7 +91,7 @@ export class TV extends Component<DiscoverTVProps, DiscoverTVState> {
           <input type="search" placeholder="search" onChange={this.handleChange} value={this.state.input} />
           <div>
             {$discoveredSeries.isLoading && <Spinner />}
-            {$discoveredSeries.isData && <CinemaPanels mediaType="tv" media={$discoveredSeries.data.results} />}
+            {$discoveredSeries.isData && <CinemaPanels mediaType="tv" media={$discoveredSeries.data.result} />}
           </div>
         </div>
         <Filters data={this.queryParams} onSubmit={this.fetchFilteredMovies} />

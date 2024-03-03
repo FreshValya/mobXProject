@@ -24,10 +24,10 @@ export class WastedMovieStore {
     try {
       const favoritesMovies = await favoritesApi.getFavorites<MovieDetailsResponse>(20175604, 'movie');
 
-      this.totalMovies = favoritesMovies.length;
+      this.totalMovies = favoritesMovies.result.length;
       const titleMoviesTimes = [];
 
-      for (const movie of favoritesMovies) {
+      for (const movie of favoritesMovies.result) {
         titleMoviesTimes.push(movie.runtime);
       }
 
