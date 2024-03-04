@@ -22,6 +22,9 @@ export class SignOutForm extends Component<LogoutFormProps> {
 
       await $authStore.signOut();
 
+      // TODO redirect to home page
+      window.location.reload();
+
       $modalStore.closeModal();
     };
 

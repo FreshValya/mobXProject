@@ -4,6 +4,7 @@ import {RequestWithOptionalUser} from '../interfaces/requestWithUser';
 
 export const checkIsToken = (req: RequestWithOptionalUser, res: Response, next: NextFunction) => {
   const token = req.cookies.wasted_token;
+
   if (token) {
     jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
       if (err) {

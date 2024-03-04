@@ -13,26 +13,40 @@ interface AuthorizationModalProps {
   $modalStore?: ModalStore;
 }
 
+interface SignInFormState {
+  email: string;
+  password: string;
+  remember: boolean;
+}
+
 @inject('$authStore', '$modalStore')
 @observer
-export class SignInForm extends Component<AuthorizationModalProps> {
+export class SignInForm extends Component<AuthorizationModalProps, SignInFormState> {
   state = {
     email: '',
     password: '',
+    remember: false,
   };
 
   handleEmail: ChangeEventHandler<HTMLInputElement> = (event) => {
-    this.setState({
-      ...this.state,
+    this.setState((prevState) => ({
+      ...prevState,
       email: event.target.value,
-    });
+    }));
   };
 
   handlePassword: ChangeEventHandler<HTMLInputElement> = (event) => {
-    this.setState({
-      ...this.state,
+    this.setState((prevState) => ({
+      ...prevState,
       password: event.target.value,
-    });
+    }));
+  };
+
+  handleRemember: ChangeEventHandler<HTMLInputElement> = () => {
+    this.setState((prevState) => ({
+      ...prevState,
+      remember: !prevState.remember,
+    }));
   };
 
   render() {
@@ -48,6 +62,8 @@ export class SignInForm extends Component<AuthorizationModalProps> {
 
       await $authStore.signIn(this.state);
 
+      window.location.reload();
+
       $modalStore.closeModal();
     };
 
@@ -60,6 +76,10 @@ export class SignInForm extends Component<AuthorizationModalProps> {
         <div className={styles.input}>
           <label htmlFor="password">password</label>
           <input id="password" value={this.state.password} onChange={this.handlePassword} type="password" />
+        </div>
+        <div>
+          <label htmlFor="remember">remember</label>
+          <input id="remember" checked={this.state.remember} onChange={this.handleRemember} type="checkbox" />
         </div>
         <div className={styles.buttons}>
           <button type="button" onClick={handleSignUp}>

@@ -6,14 +6,24 @@ export const verifyToken = (req: RequestWithUser, res: Response, next: NextFunct
   const token = req.cookies.wasted_token;
 
   if (!token) {
-    res.status(401).json({success: false, result: null, message: 'Authorization failed. No access token.'});
+    return res.status(401).json({success: false, result: null, message: 'Authorization failed. No access token.'});
   }
 
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) {
-      res.status(403).json({success: false, result: null, message: 'Could not verify token'});
+      return res
+        .status(403)
+        .clearCookie('wasted_token', {
+          maxAge: null,
+          sameSite: 'none',
+          httpOnly: true,
+          secure: true,
+          domain: req.hostname,
+          path: '/',
+        })
+        .json({success: false, result: null, message: 'Could not verify token'});
     }
     req.user = user;
+    next();
   });
-  next();
 };

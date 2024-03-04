@@ -16,6 +16,10 @@ interface HeaderProps {
 @inject('$authStore', '$modalStore')
 @observer
 export class Header extends Component<HeaderProps> {
+  componentDidMount() {
+    this.props.$authStore.verifyToken();
+  }
+
   render() {
     const {$authStore, $modalStore} = this.props;
     const handleModal = () => {

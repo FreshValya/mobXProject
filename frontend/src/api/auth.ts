@@ -62,8 +62,8 @@ interface SignUpResponse {
 
 export interface SignInPayload {
   email: string;
-  username: string;
   password: string;
+  remember: boolean;
 }
 
 interface SignInResponse {
@@ -73,6 +73,12 @@ interface SignInResponse {
 }
 
 interface SignOutResponse {
+  success: boolean;
+  result: null;
+  message: string;
+}
+
+interface VerifyTokenResponse {
   success: boolean;
   result: null;
   message: string;
@@ -125,26 +131,8 @@ export const authApi = {
     const response = await axiosInstance.post<SignOutResponse>('signOut');
     return response;
   },
+  verifyToken: async () => {
+    const response = await axiosInstance.get<VerifyTokenResponse>('verify');
+    return response;
+  },
 };
-
-// export const useAuth = async () => {
-//   let request_token;
-//
-//   axios.get('https://api.themoviedb.org/3/authentication/token/new', params).then((response) => {
-//     console.log(response);
-//     axios
-//       .post(
-//         'https://api.themoviedb.org/3/authentication/token/validate_with_login',
-//         {
-//           username: 'FreshYoda',
-//           password: 'aF!3h5PhuPhFTja',
-//           request_token: response.data.request_token,
-//         },
-//         params,
-//       )
-//       .then((response) => {
-//         console.log(response);
-//         axios.get(`https://api.themoviedb.org/3/account`, {...params, params: {session_id: response.data.session_id}});
-//       });
-//   });
-// };
