@@ -1,6 +1,9 @@
 .poster {
   position: relative;
   user-select: none;
+  height: 100px;
+  min-width: 66.66px;
+  overflow: hidden;
 
   & .watchedButton {
     position: absolute;
@@ -10,7 +13,10 @@
   }
 
   & img {
-    height: 100px;
+    height: 100%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 
     &:not([src]) {
       visibility: hidden;
