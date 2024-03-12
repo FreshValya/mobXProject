@@ -149,7 +149,7 @@ export interface RandomMovieResponse {
   result: {
     title: string;
     overview: string;
-    year: string;
+    releaseYear: string;
   };
   message: string;
 }

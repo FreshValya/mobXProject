@@ -17,6 +17,8 @@ class GimmickController {
         console.log(e);
       });
 
+    console.log(movie.release_date);
+
     res.status(200).json({
       success: false,
       result: {

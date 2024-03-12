@@ -24,7 +24,7 @@ export class TickerStore extends QueryStore<RandomMovieResponse> {
     return {
       title: this.data.result.title,
       overview: this.data.result.overview,
-      releaseYear: this.data.result.year,
+      releaseYear: this.data.result.releaseYear,
     };
   }
 }
