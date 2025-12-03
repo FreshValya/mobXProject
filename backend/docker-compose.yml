@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  postgres:
+    image: "postgres:18.1-alpine"
+    container_name: "wasted-on-cinema"
+    volumes:
+      - 'pgdata:/var/lib/postgresql'
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+
+#  api:
+#    image: "node:latest"
+#    env_file: '.env.docker'
+#    container_name: "starter-api"
+#    volumes:
+#      - "./:/source"
+#      - "/source/node_modules"
+#    working_dir: /source
+#    depends_on:
+#      - postgres
+#    ports:
+#      - "8000:8000"
+#    command: bash -c "yarn && yarn dev"
+
+volumes:
+  pgdata:

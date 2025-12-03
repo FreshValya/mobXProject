@@ -1,14 +1,11 @@
-// Update with your config settings.
-import dotenv from 'dotenv';
 import {Knex} from 'knex';
-dotenv.config();
 
 const environments: string[] = ['development', 'staging', 'production'];
 
 const connection: Knex.ConnectionConfig = {
   host: process.env.DB_HOST,
-  database: process.env.DB_DATABASE_NAME,
-  user: process.env.DB_USER,
+  database: process.env.DB_NAME,
+  user: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
 };
 

@@ -1,8 +1,8 @@
-import {Request, Response} from 'express';
+import {NextFunction, Request, Response} from 'express';
 import rp from 'request-promise';
 
 class GimmickController {
-  async getRandomMovieSummary(_req: Request, res: Response) {
+  async getRandomMovieSummary(_req: Request, res: Response, next: NextFunction): Promise<any> {
     const randomID = Math.floor(Math.random() * 1000) + 1;
 
     const movie = await rp({
@@ -13,8 +13,8 @@ class GimmickController {
       },
     })
       .then((response) => JSON.parse(response))
-      .catch((e) => {
-        console.log(e);
+      .catch((error) => {
+        next(error);
       });
 
     res.status(200).json({

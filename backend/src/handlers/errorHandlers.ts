@@ -41,7 +41,7 @@ export const catchErrors = (fn) => {
 export const notFound = (req: Request, res: Response) => {
   return res.status(404).json({
     success: false,
-    message: "Api url doesn't exist ",
+    message: "Api url doesn't exist",
   });
 };
 

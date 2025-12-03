@@ -5,13 +5,15 @@
   },
 
   "compilerOptions": {
-    "lib": ["es2023"],
+    "lib": ["ESNext"],
     "module": "nodenext",
-    "target": "es2022",
+    "target": "ESNext",
+    "types": ["node"],
 
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node16"
+    "moduleResolution": "node16",
+    "resolveJsonModule": true
   }
 }

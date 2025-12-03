@@ -1,10 +1,10 @@
 import rp from 'request-promise';
-import {Request, Response} from 'express';
+import {Response} from 'express';
 import {WatchedCinemaModel} from '../models/WatchedCinemaModel';
 import {RequestWithUser} from '../interfaces/requestWithUser';
 
 class WatchController {
-  async addWatched(req: RequestWithUser<{}, {}, {media_id: string; media_type: 'movie' | 'tvwx '}>, res: Response) {
+  async addWatched(req: RequestWithUser<{}, {}, {media_id: string; media_type: 'movie' | 'tv'}>, res: Response) {
     const {media_id, media_type} = req.body;
 
     WatchedCinemaModel.create({user_id: req.user.userId, media_id, media_type}).then(() =>
@@ -35,10 +35,10 @@ class WatchController {
     res.status(200).json({success: true, result: media, message: null});
   }
 
-  async deleteWatched(req: Request<{}, {}, {}, {media_id: number; media_type: 'tv' | 'movie'}>, res: Response) {
+  async deleteWatched(req: RequestWithUser<{}, {}, {}, {media_id: number; media_type: 'tv' | 'movie'}>, res: Response) {
     const {media_id, media_type} = req.query;
 
-    WatchedCinemaModel.deleteBy({media_id, media_type}).then(() =>
+    WatchedCinemaModel.deleteBy({media_id, media_type, user_id: req.user.userId}).then(() =>
       res.status(200).send({success: true, result: null, message: `Media deleted with ID: ${media_id}`}),
     );
   }
