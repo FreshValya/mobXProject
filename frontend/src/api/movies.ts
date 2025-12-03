@@ -145,13 +145,9 @@ export interface MovieFilter {
 }
 
 export interface RandomMovieResponse {
-  success: boolean;
-  result: {
-    title: string;
-    overview: string;
-    releaseYear: string;
-  };
-  message: string;
+  title: string;
+  overview: string;
+  releaseYear: string;
 }
 
 export const moviesApi = {

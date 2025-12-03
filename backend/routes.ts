@@ -26,6 +26,6 @@ router.post('/watched', verifyToken, watchController.addWatched);
 router.get('/watched', verifyToken, watchController.getWatched);
 router.delete('/watched', verifyToken, watchController.deleteWatched);
 
-router.get('/randomMovie', catchErrors(GimmickController.getRandomMovieSummary));
+router.get('/randomMovie', GimmickController.getRandomMovieSummary);
 
 export default router;

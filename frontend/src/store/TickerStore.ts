@@ -22,9 +22,9 @@ export class TickerStore extends QueryStore<RandomMovieResponse> {
   @computed
   get ticker(): Ticker {
     return {
-      title: this.data.result.title,
-      overview: this.data.result.overview,
-      releaseYear: this.data.result.releaseYear,
+      title: this.data.title,
+      overview: this.data.overview,
+      releaseYear: this.data.releaseYear,
     };
   }
 }
