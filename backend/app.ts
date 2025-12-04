@@ -16,15 +16,6 @@ app.use(transactionHandler);
 app.use(bodyParser.json());
 
 app.use('/api', routes);
-// TODO figure out why i wrote this
-// app.use(
-//   '/api/v3',
-//   proxy('https://api.themoviedb.org', {
-//     proxyReqPathResolver: (req) => {
-//       return `https://api.themoviedb.org/3${req.url}`;
-//     },
-//   }),
-// );
 
 app.use(genericErrorHandler);
 
