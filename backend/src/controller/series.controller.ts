@@ -1,46 +1,56 @@
-import {Response} from 'express';
-import rp from 'request-promise';
+import {NextFunction, Response} from 'express';
 import {WatchedCinemaModel} from '../models/WatchedCinemaModel';
 import {RequestWithOptionalUser} from '../interfaces/requestWithUser';
+import {TMDBSeriesResponse} from '../domain/entities/TMDB/series';
+import {StatusCodes} from 'http-status-codes';
+import {Series} from '../domain/entities/series';
 
 class SeriesController {
-  async getLatestSeries(req: RequestWithOptionalUser, res: Response) {
-    const series = await rp({
-      url: 'https://api.themoviedb.org/3/discover/tv',
-      headers: {accept: 'application/json', Authorization: process.env.TMDB_AUTH_TOKEN},
-    }).then((response) => JSON.parse(response));
+  async getLatestSeries(req: RequestWithOptionalUser, res: Response, next: NextFunction) {
+    try {
+      const TMDBSeriesList = await fetch('https://api.themoviedb.org/3/discover/tv', {
+        headers: {
+          accept: 'application/json',
+          Authorization: process.env.TMDB_AUTH_TOKEN,
+        },
+      }).then((response) => response.json() as TMDBSeriesResponse);
 
-    if ('user' in req) {
-      const watchedSeriesId = await WatchedCinemaModel.getSeriesByUserId(req.user.userId);
+      const watchedSeriesId = req.user?.userId ? await WatchedCinemaModel.getSeriesByUserId(req.user.userId) : [];
 
-      series.results.forEach((movie) => (movie.watched = watchedSeriesId.includes(movie.id)));
+      const series: Array<Series> = TMDBSeriesList.results.map((TMDBSeries) => ({
+        ...TMDBSeries,
+        watched: watchedSeriesId.includes(TMDBSeries.id),
+      }));
+
+      res.status(StatusCodes.OK).json(series);
+    } catch (error) {
+      next(error);
     }
-
-    res.status(200).json({success: true, result: series.results, message: null});
   }
-  async getSearchedSeries(req: RequestWithOptionalUser, res: Response) {
-    const searchParams = req.query;
 
-    const series = await rp({
-      uri: `https://api.themoviedb.org/3/search/tv`,
-      headers: {
-        accept: 'application/json',
-        Authorization: process.env.TMDB_AUTH_TOKEN,
-      },
-      qs: searchParams,
-    })
-      .then((response) => JSON.parse(response))
-      .catch((e) => {
-        console.log(e);
-      });
+  async getSearchedSeries(req: RequestWithOptionalUser, res: Response, next: NextFunction) {
+    try {
+      // TODO add protection to received query params
+      const searchParams = new URLSearchParams(req.query);
 
-    if ('user' in req) {
-      const watchedSeriesId = await WatchedCinemaModel.getSeriesByUserId(req.user.userId);
+      const TMDBSeriesList = await fetch(`https://api.themoviedb.org/3/search/tv?${searchParams}`, {
+        headers: {
+          accept: 'application/json',
+          Authorization: process.env.TMDB_AUTH_TOKEN,
+        },
+      }).then((response) => response.json() as TMDBSeriesResponse);
 
-      series.results.forEach((movie) => (movie.watched = watchedSeriesId.includes(movie.id)));
+      const watchedSeriesId = req.user?.userId ? await WatchedCinemaModel.getSeriesByUserId(req.user.userId) : [];
+
+      const series: Array<Series> = TMDBSeriesList.results.map((TMDBSeries) => ({
+        ...TMDBSeries,
+        watched: watchedSeriesId.includes(TMDBSeries.id),
+      }));
+
+      res.status(StatusCodes.OK).json(series);
+    } catch (error) {
+      next(error);
     }
-
-    res.status(200).json({success: true, result: series.results, message: null});
   }
 }
 

@@ -1,10 +1,10 @@
 import {action, makeObservable, observable} from 'mobx';
 
-import {MovieFilter, MoviesResponse, moviesApi} from '@api/movies';
+import {Movie, MovieFilter, moviesApi} from '@api/movies';
 
 import {QueryStore} from './QueryStore';
 
-export class DiscoveredMovies extends QueryStore<MoviesResponse> {
+export class DiscoveredMovies extends QueryStore<Array<Movie>> {
   constructor() {
     super();
 

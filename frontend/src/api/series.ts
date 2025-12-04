@@ -26,12 +26,6 @@ export interface TVShow {
 //   total_results: number;
 // }
 
-export interface SeriesResponse {
-  success: boolean;
-  result: Array<TVShow>;
-  message: string;
-}
-
 export interface SeriesDetailsResponse {
   adult: boolean;
   backdrop_path: string | null;
@@ -127,7 +121,7 @@ export interface SeriesFilter {
 
 export const seriesApi = {
   getLatestSeries: async () => {
-    const response = await axiosInstance.get<SeriesResponse>('discover/series');
+    const response = await axiosInstance.get<Array<TVShow>>('discover/series');
     return response.data;
   },
   getDetails: async (movieId: number) => {
@@ -137,7 +131,7 @@ export const seriesApi = {
   getSearchedSeries: async (requestOptions: SeriesFilter) => {
     const searchParams = qs.stringify(requestOptions, {skipEmptyString: true});
 
-    const response = await axiosInstance.get<SeriesResponse>(`search/series?${searchParams}`);
+    const response = await axiosInstance.get<Array<TVShow>>(`search/series?${searchParams}`);
     return response.data;
   },
 };

@@ -91,7 +91,7 @@ export class Movies extends Component<DiscoverMoviesProps, DiscoverMoviesState> 
           <input type="search" placeholder="search" onChange={this.handleChange} value={this.state.input} />
           <div>
             {$discoveredMovies.isLoading && <Spinner />}
-            {$discoveredMovies.isData && <CinemaPanels mediaType="movie" media={$discoveredMovies.data.result} />}
+            {$discoveredMovies.isData && <CinemaPanels mediaType="movie" media={$discoveredMovies.data} />}
           </div>
         </div>
         <Filters data={this.queryParams} onSubmit={this.fetchFilteredMovies} />

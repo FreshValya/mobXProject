@@ -91,7 +91,7 @@ export class TV extends Component<DiscoverTVProps, DiscoverTVState> {
           <input type="search" placeholder="search" onChange={this.handleChange} value={this.state.input} />
           <div>
             {$discoveredSeries.isLoading && <Spinner />}
-            {$discoveredSeries.isData && <CinemaPanels mediaType="tv" media={$discoveredSeries.data.result} />}
+            {$discoveredSeries.isData && <CinemaPanels mediaType="tv" media={$discoveredSeries.data} />}
           </div>
         </div>
         <Filters data={this.queryParams} onSubmit={this.fetchFilteredMovies} />

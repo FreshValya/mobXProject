@@ -27,12 +27,6 @@ export interface Movie {
 //   total_results: number;
 // }
 
-export interface MoviesResponse {
-  success: boolean;
-  result: Array<Movie>;
-  message: string;
-}
-
 export interface FavoriteResponse {
   page: number;
   results: Array<Movie>;
@@ -152,7 +146,7 @@ export interface RandomMovieResponse {
 
 export const moviesApi = {
   getMovies: async () => {
-    const response = await axiosInstance.get<MoviesResponse>('discover/movies');
+    const response = await axiosInstance.get<Array<Movie>>('discover/movies');
     return response.data;
   },
   getDetails: async (movieId: number) => {
@@ -166,7 +160,7 @@ export const moviesApi = {
   getSearchedMovies: async (requestOptions: MovieFilter) => {
     const searchParams = qs.stringify(requestOptions, {skipEmptyString: true});
 
-    const response = await axiosInstance.get<MoviesResponse>(`search/movies?${searchParams}`);
+    const response = await axiosInstance.get<Array<Movie>>(`search/movies?${searchParams}`);
     return response.data;
   },
 };

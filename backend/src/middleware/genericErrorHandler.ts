@@ -46,8 +46,6 @@ const genericErrorHandler = (
   // eslint-disable-next-line no-unused-vars
   _next: NextFunction,
 ): void => {
-  console.log('hey');
-
   const error = buildError(err);
   logger.error(error);
 

@@ -40,8 +40,8 @@ export class Home extends Component<HomeProps> {
 
     return (
       <div className={styles.home}>
-        <CinemaList mediaType="movie" media={$moviesStore.data.result} />
-        <CinemaList mediaType="tv" media={$seriesStore.data.result} />
+        <CinemaList mediaType="movie" media={$moviesStore.data} />
+        <CinemaList mediaType="tv" media={$seriesStore.data} />
       </div>
     );
   }

@@ -23,7 +23,6 @@
     "knex": "^3.1.0",
     "logform": "^2.7.0",
     "pg": "^8.11.3",
-    "request-promise": "^0.0.1",
     "webpack-dev-server": "5.2.2",
     "winston": "^3.18.3",
     "winston-daily-rotate-file": "^5.0.0"
@@ -34,7 +33,6 @@
     "@types/jsonwebtoken": "^9.0.5",
     "@types/node": "^24.10.1",
     "@types/pg": "^8.11.0",
-    "@types/request-promise": "^4.1.51",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
     "ascii-themes": "^1.0.1",
