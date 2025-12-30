@@ -16,4 +16,12 @@ export default {
     datePattern: process.env.LOGGING_DATE_PATTERN || 'YYYY-MM-DD',
     logFileGenerationSupport: process.env.LOG_FILE_GENERATION_SUPPORT || 'true',
   },
+  auth: {
+    saltRounds: process.env.SALT_ROUNDS || 11,
+    accessTokenDuration: process.env.ACCESS_TOKEN_DURATION || '10m',
+    refreshTokenDuration: process.env.REFRESH_TOKEN_DURATION || '24h',
+    emailVerificationDuration: process.env.EMAIL_VERIFICATION_DURATION || 24,
+    accessTokenSecretKey: process.env.ACCESS_TOKEN_SECRET_KEY || '',
+    refreshTokenSecretKey: process.env.REFRESH_TOKEN_SECRET_KEY || '',
+  },
 };
