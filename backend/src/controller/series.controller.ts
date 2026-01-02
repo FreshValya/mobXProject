@@ -1,6 +1,6 @@
 import {NextFunction, Response} from 'express';
 import {WatchedCinemaModel} from '../models/WatchedCinemaModel';
-import {RequestWithOptionalUser} from '../interfaces/requestWithUser';
+import {RequestWithOptionalUser} from '../domain/interfaces/requestWithUser';
 import {TMDBSeriesResponse} from '../domain/entities/TMDB/series';
 import {StatusCodes} from 'http-status-codes';
 import {Series} from '../domain/entities/series';

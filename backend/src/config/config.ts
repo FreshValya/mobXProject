@@ -24,4 +24,7 @@ export default {
     accessTokenSecretKey: process.env.ACCESS_TOKEN_SECRET_KEY || '',
     refreshTokenSecretKey: process.env.REFRESH_TOKEN_SECRET_KEY || '',
   },
+  TMDB: {
+    authToken: process.env.TMDB_AUTH_TOKEN || '',
+  },
 };

@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
 import {NextFunction, Response} from 'express';
-import {RequestWithUser} from '../interfaces/requestWithUser';
+import {RequestWithUser} from '../domain/interfaces/auth';
 
-export const verifyToken = (req: RequestWithUser, res: Response, next: NextFunction) => {
+export const checkAuth = (req: RequestWithUser, res: Response, next: NextFunction) => {
   const token = req.cookies.wasted_token;
 
   if (!token) {

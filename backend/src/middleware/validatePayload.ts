@@ -1,8 +1,8 @@
 import {z} from 'zod';
-import {NextFunction} from 'express';
+import {Request, Response, NextFunction} from 'express';
 import logger from '../utils/logger';
 
-export function validate<T>(schema: z.Schema<T>) {
+export function validatePayload<T>(schema: z.Schema<T>) {
   return async (req: Request, _: Response, next: NextFunction) => {
     try {
       logger.log('info', 'Validating schema');

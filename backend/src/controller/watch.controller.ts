@@ -1,6 +1,6 @@
 import {NextFunction, Response} from 'express';
 import {WatchedCinemaModel} from '../models/WatchedCinemaModel';
-import {RequestWithUser} from '../interfaces/requestWithUser';
+import {RequestWithUser} from '../domain/interfaces/requestWithUser';
 import {StatusCodes} from 'http-status-codes';
 
 class WatchController {

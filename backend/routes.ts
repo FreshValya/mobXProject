@@ -1,13 +1,15 @@
-import {NextFunction, Router} from 'express';
+import {Request, Response, NextFunction, Router} from 'express';
 import {AuthController} from './src/controller/auth.controller';
-import {verifyToken} from './src/middleware/authMiddleware';
-import {checkIsToken} from './src/middleware/checkAuthMiddleware';
+import {checkAuth} from './src/middleware/checkAuth';
+import {checkAuthSoft} from './src/middleware/checkAuthSoft';
 import moviesController from './src/controller/movies.controller';
 import seriesController from './src/controller/series.controller';
 import watchController from './src/controller/watch.controller';
 import GimmickController from './src/controller/gimmick.controller';
-import {validate} from './src/middleware/validate';
+import {validatePayload} from './src/middleware/validatePayload';
 import {signInSchema, signUpSchema} from './src/domain/schemas/auth';
+import {validateQueryParams} from './src/middleware/validateQueryParams';
+import {searchMoviesSchema} from './src/domain/schemas/movies';
 
 export const asyncHandler = (fn: Function) => {
   return (req: Request, res: Response, next: NextFunction) => {
@@ -18,20 +20,25 @@ export const asyncHandler = (fn: Function) => {
 const router = Router();
 const authController = new AuthController();
 
-router.post('/signUp', validate(signUpSchema), asyncHandler(authController.signUp));
-router.post('/signIn', validate(signInSchema), asyncHandler(authController.signIn));
-router.post('/signOut', verifyToken, authController.signOut);
-router.get('/verify', verifyToken, authController.verify);
+router.post('/signUp', validatePayload(signUpSchema), asyncHandler(authController.signUp));
+router.post('/signIn', validatePayload(signInSchema), asyncHandler(authController.signIn));
+router.post('/signOut', checkAuth, authController.signOut);
+router.get('/verify', checkAuth, authController.verify);
 
-router.get('/discover/movies', checkIsToken, moviesController.getLatestMovies);
-router.get('/search/movies', checkIsToken, moviesController.getSearchedMovies);
+router.get('/discover/movies', checkAuthSoft, moviesController.getLatestMovies);
+router.get(
+  '/search/movies',
+  validateQueryParams(searchMoviesSchema),
+  checkAuthSoft,
+  moviesController.getSearchedMovies,
+);
 
-router.get('/discover/series', checkIsToken, seriesController.getLatestSeries);
-router.get('/search/series', seriesController.getSearchedSeries);
+router.get('/discover/series', checkAuthSoft, seriesController.getLatestSeries);
+router.get('/search/series', checkAuthSoft, seriesController.getSearchedSeries);
 
-router.post('/watched', verifyToken, watchController.addWatched);
-router.get('/watched', verifyToken, watchController.getWatched);
-router.delete('/watched', verifyToken, watchController.deleteWatched);
+router.post('/watched', checkAuth, watchController.addWatched);
+router.get('/watched', checkAuth, watchController.getWatched);
+router.delete('/watched', checkAuth, watchController.deleteWatched);
 
 router.get('/randomMovie', GimmickController.getRandomMovieSummary);
 
