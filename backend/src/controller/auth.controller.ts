@@ -5,7 +5,7 @@ import AuthService from '../services/auth.service';
 
 const YEAR_IN_MILLISECONDS = 365 * 24 * 60 * 60 * 1000;
 
-export class AuthController {
+class AuthController {
   private readonly authService: AuthService;
 
   constructor() {
@@ -72,3 +72,5 @@ export class AuthController {
     }
   }
 }
+
+export default new AuthController();

@@ -1,14 +1,13 @@
 import {z} from 'zod';
 
-export const searchMoviesSchema = z.object({
+export const searchSeriesSchema = z.object({
   query: z.string(),
+  first_air_date_year: z.int32().gte(1000).lte(9999).optional(),
   include_adult: z
     .string()
     .regex(/^(true)|(false)$/)
     .default('false'),
   language: z.string().default('en-US'),
-  primary_release_year: z.string().optional(),
   page: z.int32().default(1),
-  region: z.string().optional(),
-  year: z.string().optional(),
+  year: z.int32().gte(1000).lte(9999).optional(),
 });

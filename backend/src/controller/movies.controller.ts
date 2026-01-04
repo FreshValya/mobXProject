@@ -13,7 +13,7 @@ class MoviesController {
 
   getLatestMovies = async (req: RequestWithOptionalUser, res: Response, next: NextFunction) => {
     try {
-      const {movies} = await this.moviesService.popularMovies(req.user.userId);
+      const {movies} = await this.moviesService.popularMovies(req.user?.userId);
 
       res.status(StatusCodes.OK).json(movies);
     } catch (error) {
@@ -27,7 +27,7 @@ class MoviesController {
     next: NextFunction,
   ) => {
     try {
-      const {movies} = await this.moviesService.searchMovies(req.user.userId, req.query);
+      const {movies} = await this.moviesService.searchMovies(req.query, req.user?.userId);
 
       res.status(StatusCodes.OK).json(movies);
     } catch (error) {

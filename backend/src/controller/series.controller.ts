@@ -1,57 +1,39 @@
 import {NextFunction, Response} from 'express';
-import {WatchedCinemaModel} from '../models/WatchedCinemaModel';
-import {RequestWithOptionalUser} from '../domain/interfaces/requestWithUser';
-import {TMDBSeriesResponse} from '../domain/entities/TMDB/series';
 import {StatusCodes} from 'http-status-codes';
-import {Series} from '../domain/entities/series';
+import SeriesService from '../services/series.service';
+import {SearchSeriesDTO} from '../domain/interfaces/series';
+import {RequestWithOptionalUser} from '../domain/interfaces/auth';
 
 class SeriesController {
-  async getLatestSeries(req: RequestWithOptionalUser, res: Response, next: NextFunction) {
+  private readonly seriesService: SeriesService;
+
+  constructor() {
+    this.seriesService = new SeriesService();
+  }
+
+  getLatestSeries = async (req: RequestWithOptionalUser, res: Response, next: NextFunction) => {
     try {
-      const TMDBSeriesList = await fetch('https://api.themoviedb.org/3/discover/tv', {
-        headers: {
-          accept: 'application/json',
-          Authorization: process.env.TMDB_AUTH_TOKEN,
-        },
-      }).then((response) => response.json() as TMDBSeriesResponse);
-
-      const watchedSeriesId = req.user?.userId ? await WatchedCinemaModel.getSeriesByUserId(req.user.userId) : [];
-
-      const series: Array<Series> = TMDBSeriesList.results.map((TMDBSeries) => ({
-        ...TMDBSeries,
-        watched: watchedSeriesId.includes(TMDBSeries.id),
-      }));
+      const {series} = await this.seriesService.popularSeries(req.user?.userId);
 
       res.status(StatusCodes.OK).json(series);
     } catch (error) {
       next(error);
     }
-  }
+  };
 
-  async getSearchedSeries(req: RequestWithOptionalUser, res: Response, next: NextFunction) {
+  getSearchedSeries = async (
+    req: RequestWithOptionalUser<{}, {}, {}, SearchSeriesDTO>,
+    res: Response,
+    next: NextFunction,
+  ) => {
     try {
-      // TODO add protection to received query params
-      const searchParams = new URLSearchParams(req.query);
-
-      const TMDBSeriesList = await fetch(`https://api.themoviedb.org/3/search/tv?${searchParams}`, {
-        headers: {
-          accept: 'application/json',
-          Authorization: process.env.TMDB_AUTH_TOKEN,
-        },
-      }).then((response) => response.json() as TMDBSeriesResponse);
-
-      const watchedSeriesId = req.user?.userId ? await WatchedCinemaModel.getSeriesByUserId(req.user.userId) : [];
-
-      const series: Array<Series> = TMDBSeriesList.results.map((TMDBSeries) => ({
-        ...TMDBSeries,
-        watched: watchedSeriesId.includes(TMDBSeries.id),
-      }));
+      const {series} = await this.seriesService.searchSeries(req.query, req.user?.userId);
 
       res.status(StatusCodes.OK).json(series);
     } catch (error) {
       next(error);
     }
-  }
+  };
 }
 
 export default new SeriesController();

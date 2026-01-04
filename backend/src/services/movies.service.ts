@@ -5,7 +5,7 @@ import {Movie} from '../domain/entities/movies';
 import config from '../config/config';
 
 export default class MoviesService {
-  async popularMovies(userId: number) {
+  async popularMovies(userId?: number) {
     const TMDBMoviesList = await fetch(`https://api.themoviedb.org/3/discover/movie`, {
       headers: {
         accept: 'application/json',
@@ -13,12 +13,12 @@ export default class MoviesService {
       },
     }).then((response) => response.json() as unknown as TMDBMoviesResponse);
 
-    const movies = await this.markWatchedMovies(userId, TMDBMoviesList.results);
+    const movies = await this.markWatchedMovies(TMDBMoviesList.results, userId);
 
     return {movies};
   }
 
-  async searchMovies(userId: number, searchMoviesParams: SearchMoviesDTO) {
+  async searchMovies(searchMoviesParams: SearchMoviesDTO, userId?: number) {
     const searchParams = new URLSearchParams(searchMoviesParams);
 
     const TMDBMoviesList = await fetch(`https://api.themoviedb.org/3/search/movie?${searchParams}`, {
@@ -28,12 +28,12 @@ export default class MoviesService {
       },
     }).then((response) => response.json() as unknown as TMDBMoviesResponse);
 
-    const movies = await this.markWatchedMovies(userId, TMDBMoviesList.results);
+    const movies = await this.markWatchedMovies(TMDBMoviesList.results, userId);
 
     return {movies};
   }
 
-  private async markWatchedMovies(userId: number, TMDBMovies: Array<TMDBMovie>) {
+  private async markWatchedMovies(TMDBMovies: Array<TMDBMovie>, userId?: number) {
     const watchedMediaId = await WatchedCinemaModel.getMoviesByUserId(userId);
 
     return TMDBMovies.map<Movie>((TMDBMovie) => ({
