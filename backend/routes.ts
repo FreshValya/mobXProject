@@ -4,13 +4,14 @@ import {checkAuth} from './src/middleware/checkAuth';
 import {checkAuthSoft} from './src/middleware/checkAuthSoft';
 import moviesController from './src/controller/movies.controller';
 import seriesController from './src/controller/series.controller';
-import watchController from './src/controller/watch.controller';
+import watchController from './src/controller/watched.controller';
 import GimmickController from './src/controller/gimmick.controller';
 import {validatePayload} from './src/middleware/validatePayload';
 import {signInSchema, signUpSchema} from './src/domain/schemas/auth';
 import {validateQueryParams} from './src/middleware/validateQueryParams';
 import {searchMoviesSchema} from './src/domain/schemas/movies';
 import {searchSeriesSchema} from './src/domain/schemas/series';
+import {watchedMediaSchema, watchedQuerySchema} from './src/domain/schemas/watched';
 
 const router = Router();
 
@@ -35,9 +36,9 @@ router.get(
   seriesController.getSearchedSeries,
 );
 
-router.post('/watched', checkAuth, watchController.addWatched);
-router.get('/watched', checkAuth, watchController.getWatched);
-router.delete('/watched', checkAuth, watchController.deleteWatched);
+router.post('/watched', checkAuth, validatePayload(watchedMediaSchema), watchController.addWatched);
+router.get('/watched', checkAuth, validateQueryParams(watchedQuerySchema), watchController.getWatched);
+router.delete('/watched', checkAuth, validateQueryParams(watchedMediaSchema), watchController.deleteWatched);
 
 router.get('/randomMovie', GimmickController.getRandomMovieSummary);
 

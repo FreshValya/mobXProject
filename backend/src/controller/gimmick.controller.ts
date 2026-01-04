@@ -1,28 +1,23 @@
 import {NextFunction, Request, Response} from 'express';
 import {StatusCodes} from 'http-status-codes';
-import {TMDBMovie} from '../domain/entities/TMDB/movies';
+import GimmickService from '../services/gimmick.service';
 
 class GimmickController {
-  async getRandomMovieSummary(_req: Request, res: Response, next: NextFunction) {
+  private readonly gimmickService: GimmickService;
+
+  constructor() {
+    this.gimmickService = new GimmickService();
+  }
+
+  getRandomMovieSummary = async (_req: Request, res: Response, next: NextFunction) => {
     try {
-      const randomID = Math.floor(Math.random() * 1000) + 1;
+      const movieSummary = await this.gimmickService.randomMovieSummary();
 
-      const movie = await fetch(`https://api.themoviedb.org/3/movie/${randomID}`, {
-        headers: {
-          accept: 'application/json',
-          Authorization: process.env.TMDB_AUTH_TOKEN,
-        },
-      }).then((response) => response.json() as TMDBMovie);
-
-      res.status(StatusCodes.OK).json({
-        title: movie.title || '',
-        overview: movie.overview || '',
-        releaseYear: movie.release_date.split('-')[0] || '',
-      });
+      res.status(StatusCodes.OK).json(movieSummary);
     } catch (error) {
       next(error);
     }
-  }
+  };
 }
 
 export default new GimmickController();
