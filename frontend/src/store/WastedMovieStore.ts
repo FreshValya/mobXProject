@@ -1,14 +1,13 @@
 import {action, makeObservable, observable} from 'mobx';
 
 import {FavoriteResponse, favoritesApi} from '@api/favorites';
-import {MovieDetailsResponse} from '@api/movies';
 
 export class WastedMovieStore {
   constructor() {
     makeObservable(this);
   }
 
-  @observable data: FavoriteResponse<MovieDetailsResponse>;
+  @observable data: FavoriteResponse;
   @observable isLoading = false;
   @observable isError = false;
 
@@ -22,17 +21,11 @@ export class WastedMovieStore {
     this.isLoading = true;
 
     try {
-      const favoritesMovies = await favoritesApi.getFavorites<MovieDetailsResponse>(20175604, 'movie');
+      const {numberOfMedia, totalRuntime, averageRuntime} = await favoritesApi.getFavorites(20175604, 'movie');
 
-      this.totalMovies = favoritesMovies.result.length;
-      const titleMoviesTimes = [];
-
-      for (const movie of favoritesMovies.result) {
-        titleMoviesTimes.push(movie.runtime);
-      }
-
-      this.totalMoviesLength = titleMoviesTimes.reduce((prev, curr) => prev + curr, 0);
-      this.averageMoviesLength = parseFloat((this.totalMoviesLength / this.totalMovies).toFixed(2)) || 0;
+      this.totalMovies = numberOfMedia;
+      this.totalMoviesLength = totalRuntime;
+      this.averageMoviesLength = averageRuntime;
     } catch (error) {
       this.isError = true;
       console.error(`Error happened: ${error}`);

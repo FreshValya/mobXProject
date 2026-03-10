@@ -29,9 +29,12 @@ class WatchedController {
 
   getWatched = async (req: RequestWithUser<{}, {}, {}, {media_type: MediaType}>, res: Response, next: NextFunction) => {
     try {
-      const {media} = await this.watchedService.watchedMedia(req.user.userId, req.query.media_type);
+      const {numberOfMedia, totalRuntime, averageRuntime} = await this.watchedService.watchedMedia(
+        req.user.userId,
+        req.query.media_type,
+      );
 
-      res.status(StatusCodes.OK).json(media);
+      res.status(StatusCodes.OK).json({numberOfMedia, totalRuntime, averageRuntime});
     } catch (error) {
       next(error);
     }

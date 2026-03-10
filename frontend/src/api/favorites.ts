@@ -13,10 +13,10 @@ type FavoritePayload = {
   status_message: string;
 };
 
-export type FavoriteResponse<T extends MovieDetailsResponse | SeriesDetailsResponse> = {
-  success: boolean;
-  result: Array<T>;
-  message: string;
+export type FavoriteResponse = {
+  numberOfMedia: number;
+  totalRuntime: number;
+  averageRuntime: number;
 };
 
 export interface DeleteFavoriteOptions {
@@ -35,11 +35,8 @@ export const favoritesApi = {
 
     return response.data;
   },
-  getFavorites: async <T extends MovieDetailsResponse | SeriesDetailsResponse>(
-    accountId: number,
-    cinemaType: 'movie' | 'tv',
-  ) => {
-    const response = await axiosInstance.get<FavoriteResponse<T>>(
+  getFavorites: async (accountId: number, cinemaType: 'movie' | 'tv') => {
+    const response = await axiosInstance.get<FavoriteResponse>(
       // `https://api.themoviedb.org/3/account/${accountId}/favorite/${cinemaType}`,
       'watched',
       {params: {media_type: cinemaType}},

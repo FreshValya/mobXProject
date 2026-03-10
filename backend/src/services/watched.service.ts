@@ -25,7 +25,41 @@ export default class WatchedService {
       ),
     );
 
-    return {media};
+    if (mediaType === 'movie') {
+      const moviesRuntime = [];
+
+      (media as Array<MovieDetails>).forEach((movie) => {
+        moviesRuntime.push(movie.runtime);
+      });
+
+      const totalMoviesRuntime = moviesRuntime.reduce((prev, curr) => prev + curr, 0);
+      const averageMoviesRuntime = parseFloat((totalMoviesRuntime / moviesRuntime.length).toFixed(2)) || 0;
+
+      return {
+        numberOfMedia: moviesRuntime.length,
+        totalRuntime: totalMoviesRuntime,
+        averageRuntime: averageMoviesRuntime,
+      };
+    }
+
+    if (mediaType === 'tv') {
+      const seriesRuntime = [];
+
+      (media as Array<SeriesDetails>).forEach((series) => {
+        const avgEpisodeRuntime = series.episode_run_time.reduce((prev, curr) => prev + curr, 0);
+
+        seriesRuntime.push(series.number_of_episodes * avgEpisodeRuntime);
+      });
+
+      const totalSeriesRuntime = seriesRuntime.reduce((prev, curr) => prev + curr, 0);
+      const averageSeriesRuntime = parseFloat((totalSeriesRuntime / seriesRuntime.length).toFixed(2)) || 0;
+
+      return {
+        numberOfMedia: seriesRuntime.length,
+        totalRuntime: totalSeriesRuntime,
+        averageRuntime: averageSeriesRuntime,
+      };
+    }
   }
 
   async unmarkWatchedMedia({userId, mediaId, mediaType}: MarkMediadParams) {
